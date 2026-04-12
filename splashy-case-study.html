@@ -31,13 +31,16 @@
       align-items: center;
     }
     .phones-row--5 { grid-template-columns: repeat(5, 1fr); }
-    .phones-row--5 .phone-wrap img { max-width: 180px; }
     .phone-wrap img {
       width: 100%;
-      max-width: 240px;
-      border-radius: 8px;
+      max-width: 180px;
+      height: 390px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 28px;
       display: block;
       transition: transform 0.4s ease;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
     .phone-wrap:hover img { transform: translateY(-6px); }
     .phone-label {
@@ -158,8 +161,8 @@
     }
 
     @media (max-width: 900px) {
-      .phones-row, .phones-row--5 { grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
-      .phones-row--5 .phone-wrap img, .phone-wrap img { max-width: 160px; }
+      .phones-row, .phones-row--5 { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .phone-wrap img { height: 260px; max-width: 120px; }
       .feature-grid, .insights { grid-template-columns: 1fr; }
       .ocean-journey { grid-template-columns: 1fr; }
       .ocean-arrow { flex-direction: row; }
@@ -228,15 +231,15 @@
           <img src="splash screen.png" alt="Splashy splash screen"/>
           <p class="phone-label">Splash screen</p>
         </div>
-        <div class="phone-wrap" style="transform:translateY(-16px)">
+        <div class="phone-wrap">
           <img src="fish - medium.png" alt="Ocean — in progress"/>
           <p class="phone-label">Ocean — building up</p>
         </div>
-        <div class="phone-wrap" style="transform:translateY(-32px)">
+        <div class="phone-wrap">
           <img src="fish.png" alt="Ocean — thriving"/>
           <p class="phone-label">Ocean — thriving</p>
         </div>
-        <div class="phone-wrap" style="transform:translateY(-16px)">
+        <div class="phone-wrap">
           <img src="quests active good.png" alt="Quests screen"/>
           <p class="phone-label">Active quests</p>
         </div>
