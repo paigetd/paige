@@ -280,7 +280,6 @@ section { padding: 4rem 3rem; }
   align-items: flex-end;
   margin-bottom: 2rem;
 }
-
 .work-header .section-heading { margin-bottom: 0; }
 .view-all {
   font-size: 0.72rem;
@@ -295,38 +294,123 @@ section { padding: 4rem 3rem; }
 .view-all:hover { color: var(--black); }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* Hero card — full width, horizontal layout */
-.project-card--hero {
-  grid-column: span 2;
-  display: grid !important;
-  grid-template-columns: 1.6fr 1fr;
+/* ── Base card ── */
+.pcard {
+  background: var(--white);
+  border-radius: 6px;
+  overflow: hidden;
   text-decoration: none;
   color: inherit;
+  display: block;
+  cursor: pointer;
 }
-.project-card--hero .card-visual { border-radius: 4px 0 0 4px; }
-.project-card--hero .card-info {
+
+/* ── Wide card: image left, text right ── */
+.pcard--wide {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  min-height: 260px;
+}
+.pcard-img {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+.pcard-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.pcard--wide:hover .pcard-img img { transform: scale(1.04); }
+
+/* Dark bg variant for Splashy phones */
+.pcard-img--dark {
+  background: linear-gradient(135deg, #0d2235 0%, #1a5070 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.splashy-phones {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  height: 100%;
+}
+.splashy-phones img {
+  width: auto !important;
+  height: 220px !important;
+  object-fit: contain !important;
+  object-position: bottom !important;
+  flex-shrink: 0;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+  transition: transform 0.4s ease !important;
+}
+.pcard--wide:hover .splashy-phones img { transform: translateY(-6px) !important; }
+
+.pcard-overlay {
+  position: absolute; inset: 0;
+  background: rgba(14,13,11,0);
+  display: flex; align-items: flex-end;
+  padding: 1.2rem;
+  transition: background 0.4s;
+  pointer-events: none;
+}
+.pcard--wide:hover .pcard-overlay { background: rgba(14,13,11,0.35); }
+.pcard-arrow {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s, transform 0.35s;
+  flex-shrink: 0;
+}
+.pcard-arrow svg { width: 13px; height: 13px; }
+.pcard--wide:hover .pcard-arrow { opacity: 1; transform: translateY(0); }
+
+.pcard-body {
+  padding: 2rem 2rem 1.8rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem;
-  background: var(--white);
-  border-radius: 0 4px 4px 0;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-left: none;
+  border-left: 1px solid rgba(0,0,0,0.06);
 }
-.card-info--hero .card-title { font-size: 1.5rem; margin-bottom: 0.6rem; }
-.card-tags {
+.pcard-cat {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.pcard-title {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  line-height: 1.15;
+  margin-bottom: 0.7rem;
+}
+.pcard-desc {
+  font-size: 0.83rem;
+  color: var(--mid);
+  line-height: 1.7;
+}
+.pcard-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-top: 1.5rem;
 }
-.card-tag {
+.pcard-tag {
   font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -336,130 +420,75 @@ section { padding: 4rem 3rem; }
   color: var(--mid);
 }
 
-.project-card {
-  background: var(--white);
-  overflow: hidden;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
+/* ── Small cards row ── */
+.projects-grid .pcard--small:first-of-type,
+.pcard--small + .pcard--small {
   display: block;
 }
+/* Wrap small cards in a row */
+.pcard--small {
+  flex: 1;
+}
 
-.card-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
-  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* Trick: last two cards sit side by side */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  gap: 1rem;
 }
-.project-card:hover .card-photo { transform: scale(1.03); }
+.pcard--wide {
+  grid-column: span 2;
+}
+.pcard--small {
+  grid-column: span 1;
+}
 
-.card-visual {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  height: 220px;
-}
-.project-card--hero .card-visual { height: 340px; }
-
-.card-visual-inner {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.project-card:hover .card-visual-inner { transform: scale(1.04); }
-
-.cv-1 {
-  height: 220px;
-  background: linear-gradient(135deg, #111827 0%, #1e3a5f 100%);
-  display: flex; align-items: center; justify-content: center;
-}
-.cv-1-inner {
-  width: 100px; height: 100px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(200,169,110,0.05), rgba(200,169,110,0.45), rgba(200,169,110,0.05));
-  box-shadow: 0 0 60px rgba(200,169,110,0.2), inset 0 0 30px rgba(200,169,110,0.06);
-}
-.cv-2 {
-  height: 220px;
+/* Small card image areas */
+.pcard-img--print {
+  height: 160px;
   background: linear-gradient(170deg, #f5efe6 0%, #e0d5c4 100%);
-  display: flex; align-items: flex-end; justify-content: flex-start;
-  padding: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.2rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.pcard-placeholder-text {
   font-family: var(--serif);
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: rgba(0,0,0,0.1);
   line-height: 1;
   letter-spacing: -0.03em;
 }
-.cv-3 {
-  height: 220px;
-  background: #1a1a1a;
-  display: flex; align-items: center; justify-content: center;
-  gap: 10px;
+.pcard-img--social {
+  height: 160px;
+  background: #111;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 1.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
 }
-.cv-3-bar {
-  width: 3px;
+.social-bars div {
+  width: 4px;
   background: var(--accent);
   border-radius: 2px;
   opacity: 0.65;
 }
-.cv-4 {
-  height: 220px;
-  background: linear-gradient(135deg, #f0ebe3 0%, #ddd7cd 100%);
-  display: grid;
-  place-items: center;
-}
-.cv-4-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 28px);
-  grid-template-rows: repeat(3, 28px);
-  gap: 8px;
-}
-.cv-4-dot {
-  border-radius: 50%;
-  background: rgba(0,0,0,0.12);
-}
-.cv-4-dot.filled { background: var(--accent); opacity: 0.7; }
 
-.card-overlay {
-  position: absolute; inset: 0;
-  background: rgba(14,13,11,0);
-  display: flex; align-items: flex-end;
-  padding: 1.2rem;
-  transition: background 0.4s;
+.pcard-body--small {
+  padding: 1.2rem 1.4rem 1.4rem;
+  border-left: none;
 }
-.project-card:hover .card-overlay { background: rgba(14,13,11,0.45); }
-.card-arrow {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.35s, transform 0.35s;
-}
-.project-card:hover .card-arrow { opacity: 1; transform: translateY(0); }
+.pcard-body--small .pcard-title { font-size: 1.15rem; }
 
-.card-info { padding: 1.3rem 1.4rem 1.5rem; }
-.card-category {
-  font-size: 0.63rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.35rem;
-}
-.card-title {
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  margin-bottom: 0.45rem;
-  line-height: 1.15;
-}
-.card-desc {
-  font-size: 0.82rem;
-  color: var(--mid);
-  line-height: 1.65;
+/* Hover on small cards */
+.pcard--small:hover .pcard-img--print,
+.pcard--small:hover .pcard-img--social {
+  opacity: 0.92;
 }
 
 /* ── Experience ── */
@@ -596,11 +625,12 @@ footer a:hover { color: var(--accent); }
   section { padding: 3rem 1.5rem; }
   #about { grid-template-columns: 1fr; gap: 2.5rem; }
   .projects-grid { grid-template-columns: 1fr; }
-  .project-card--hero { grid-column: span 1; grid-template-columns: 1fr; }
-  .project-card--hero .card-visual { border-radius: 4px 4px 0 0; height: 220px; }
-  .project-card--hero .card-info { border-radius: 0 0 4px 4px; border-left: 1px solid rgba(0,0,0,0.06); border-top: none; }
-  .cv-1, .cv-2, .cv-3, .cv-4 { height: 180px; }
-  .card-visual { height: 180px; }
+  .pcard--wide { grid-column: span 1; grid-template-columns: 1fr; min-height: auto; }
+  .pcard-img { height: 200px; }
+  .pcard-img--dark { height: 200px; }
+  .splashy-phones img { height: 160px !important; }
+  .pcard-body { border-left: none; border-top: 1px solid rgba(0,0,0,0.06); padding: 1.4rem; }
+  .pcard--small { grid-column: span 1; }
   #experience { grid-template-columns: 1fr; gap: 1rem; }
   .exp-heading-col { position: static; }
   .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
