@@ -138,7 +138,7 @@ window.addEventListener('load', () => {
 });
 
 /* ── Card tilt ── */
-document.querySelectorAll('.pcard--wide').forEach(card => {
+document.querySelectorAll('.wcard--full, .wcard--half').forEach(card => {
   card.addEventListener('mousemove', e => {
     const r = card.getBoundingClientRect();
     const x = ((e.clientX - r.left) / r.width - 0.5) * 5;
