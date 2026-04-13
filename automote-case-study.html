@@ -252,12 +252,12 @@
       <div class="screens-grid">
         <div class="screen-panel">
           <p class="screen-panel-label">Orders <span>Order Management</span></p>
-          <img src="automote-orders.png" alt="Automote orders screen — redesigned"/>
+          <img src="orders 1 -1.png" alt="Automote orders screen — redesigned"/>
           <p class="screen-panel-cap">The orders view — filterable by ID, customer, model, date, and production status. Clear hierarchy, consistent actions, and a status system that actually communicates where each order is.</p>
         </div>
         <div class="screen-panel">
           <p class="screen-panel-label">Configure Builds <span>Vehicle Configuration</span></p>
-          <img src="automote-configure.png" alt="Automote configure builds screen — redesigned"/>
+          <img src="edit trim level.png" alt="Automote configure builds screen — redesigned"/>
           <p class="screen-panel-cap">The build configurator — dealers set up vehicle specs (trim levels, battery size, interior, drive train) with a two-panel layout that keeps details and configuration steps in view simultaneously.</p>
         </div>
       </div>
@@ -496,6 +496,30 @@
     }, { threshold: 0.05 });
     sections.forEach(s => obs.observe(s));
     setTimeout(() => sections.forEach(s => s.classList.add('visible')), 1500);
+  </script>
+
+  <script>
+    // Page transition out
+    const ov = document.createElement('div');
+    ov.style.cssText = 'position:fixed;inset:0;background:var(--black);z-index:9000;pointer-events:none;opacity:0;transition:opacity 0.4s ease;';
+    document.body.appendChild(ov);
+    document.querySelectorAll('a[href]').forEach(a => {
+      const h = a.getAttribute('href');
+      if (!h.startsWith('#') && !h.startsWith('mailto') && !h.startsWith('http') && h.endsWith('.html')) {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          ov.style.opacity = '1'; ov.style.pointerEvents = 'all';
+          setTimeout(() => window.location.href = h, 420);
+        });
+      }
+    });
+    // Scroll progress
+    const pb = document.createElement('div');
+    pb.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:8997;width:0%;transition:width 0.1s linear;';
+    document.body.appendChild(pb);
+    window.addEventListener('scroll', () => {
+      pb.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+    });
   </script>
 </body>
 </html>
