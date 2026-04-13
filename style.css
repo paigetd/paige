@@ -326,22 +326,25 @@ section { padding: 4rem 3rem; }
 }
 .splashy-phones {
   display: flex;
-  align-items: flex-end;
-  gap: 1rem;
-  padding: 1.5rem 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 2rem;
   height: 100%;
+  min-height: 260px;
 }
 .splashy-phones img {
-  width: auto !important;
-  height: 220px !important;
-  object-fit: contain !important;
-  object-position: bottom !important;
+  width: 100px !important;
+  height: 216px !important;
+  object-fit: cover !important;
+  object-position: top !important;
   flex-shrink: 0;
-  border-radius: 16px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
   transition: transform 0.4s ease !important;
+  display: block !important;
 }
-.pcard--wide:hover .splashy-phones img { transform: translateY(-6px) !important; }
+.pcard--wide:hover .splashy-phones img { transform: translateY(-8px) !important; }
 
 .pcard-overlay {
   position: absolute; inset: 0;
@@ -476,6 +479,29 @@ section { padding: 4rem 3rem; }
 .pcard--small:hover .pcard-img--social {
   opacity: 0.92;
 }
+
+/* ── Automote dual screens ── */
+.automote-screens {
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  position: relative;
+}
+.automote-img {
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+.automote-img--main {
+  width: 62%;
+  border-right: 2px solid var(--cream);
+}
+.automote-img--secondary {
+  width: 38%;
+}
+.pcard--wide:hover .automote-img { transform: scale(1.03); }
 
 /* ── Experience ── */
 #experience {
