@@ -69,7 +69,7 @@
     }, 400);
   }
 
-  // --- REVEAL ANIMATIONS (Intersection Observer) ---
+  // --- REVEAL ANIMATIONS (homepage) ---
   const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -80,6 +80,29 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
+
+  // --- CASE STUDY SECTION REVEAL (with fallback) ---
+  const csSections = document.querySelectorAll('.cs-section');
+  if (csSections.length) {
+    const csObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          csObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    csSections.forEach(section => csObserver.observe(section));
+
+    // FALLBACK: after 1 second, reveal any section that still isn't visible
+    setTimeout(() => {
+      csSections.forEach(section => {
+        if (!section.classList.contains('visible')) {
+          section.classList.add('visible');
+        }
+      });
+    }, 1000);
+  }
 
   // --- 3D CARD TILT (Bento cards) ---
   const tiltCards = document.querySelectorAll('.bento-card');
@@ -116,7 +139,7 @@
     });
   });
 
-  // --- SKILL TAGS STAGGER (About section) ---
+  // --- SKILL TAGS STAGGER ---
   const skillTags = document.querySelectorAll('.skill-tag');
   if (skillTags.length) {
     skillTags.forEach(tag => {
@@ -137,20 +160,6 @@
     }, { threshold: 0.2 });
     const aboutSection = document.getElementById('about');
     if (aboutSection) skillObserver.observe(aboutSection);
-  }
-
-  // --- CASE STUDY SECTION REVEAL (for case study pages) ---
-  const csSections = document.querySelectorAll('.cs-section');
-  if (csSections.length) {
-    const csObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          csObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.05 });
-    csSections.forEach(section => csObserver.observe(section));
   }
 
   // --- SMOOTH SCROLL FOR ANCHOR LINKS ---
