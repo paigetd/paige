@@ -1,195 +1,168 @@
-/* ===========================================
-   Paige Simm — Portfolio
-   =========================================== */
-
-// ── Explained simply ──
-// scroll progress  → gold line at top fills as you scroll
-// text scramble    → hero name glitches through random chars before settling
-// card tilt        → project cards subtly rotate in 3D as mouse moves over them
-// magnetic         → contact links drift slightly toward the cursor
-// fade-ins         → sections drift up into view as you scroll to them
-// page transitions → smooth black fade when navigating between pages
-
-// ── Page transitions ──
-const overlay = document.createElement('div');
-overlay.style.cssText = 'position:fixed;inset:0;background:#0e0d0b;z-index:9000;pointer-events:none;opacity:0;transition:opacity 0.4s ease;';
-document.body.appendChild(overlay);
-
-document.querySelectorAll('a[href]').forEach(link => {
-  const href = link.getAttribute('href');
-  if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http')) return;
-  if (!href.endsWith('.html')) return;
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'all';
-    setTimeout(() => { window.location.href = href; }, 420);
-  });
-});
-
-// ── Nav frost on scroll ──
-const nav = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-// ── Scroll progress bar ──
-const bar = document.createElement('div');
-bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:#c8a96e;z-index:9001;width:0;pointer-events:none;transition:width 0.1s linear;';
-document.body.appendChild(bar);
-window.addEventListener('scroll', () => {
-  const total = document.documentElement.scrollHeight - window.innerHeight;
-  bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
-}, { passive: true });
-
-// ── Text scramble on hero name ──
-const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
-
-function scramble(el, finalText, duration) {
-  let startTime = null;
-  function frame(ts) {
-    if (!startTime) startTime = ts;
-    const progress = Math.min((ts - startTime) / duration, 1);
-    const revealUpTo = Math.floor(progress * finalText.length);
-    let result = '';
-    for (let i = 0; i < finalText.length; i++) {
-      if (finalText[i] === '.' || finalText[i] === ' ') {
-        result += finalText[i];
-      } else if (i < revealUpTo) {
-        result += finalText[i];
-      } else {
-        result += CHARS[Math.floor(Math.random() * CHARS.length)];
-      }
-    }
-    el.textContent = result;
-    if (progress < 1) requestAnimationFrame(frame);
-    else el.textContent = finalText;
+(function() {
+  // --- SCROLL PROGRESS BAR ---
+  const progressBar = document.getElementById('scroll-bar');
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+      progressBar.style.width = progress + '%';
+    });
   }
-  requestAnimationFrame(frame);
-}
 
-// Run scramble after CSS animations have had time to complete
-setTimeout(() => {
-  const l1 = document.querySelector('.hero-name-line:first-child');
-  const l2 = document.querySelector('.hero-name-line:last-child');
-  if (l1) scramble(l1, 'Paige', 700);
-  if (l2) setTimeout(() => scramble(l2, 'Simm.', 800), 250);
-}, 900);
+  // --- NAV GLASS EFFECT ---
+  const nav = document.querySelector('.nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  }
 
-// ── Card tilt (3D rotation on mouse move) ──
-document.querySelectorAll('.wcard--full, .wcard--half').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width - 0.5) * 6;
-    const y = ((e.clientY - r.top) / r.height - 0.5) * -4;
-    card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg) scale(1.015)`;
-    card.style.transition = 'transform 0.1s ease';
-    card.style.zIndex = '2';
-    card.style.position = 'relative';
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
-    card.style.transition = 'transform 0.5s ease';
-    card.style.zIndex = '';
-  });
-});
-
-// ── Magnetic contact links (drift toward cursor) ──
-document.querySelectorAll('.contact-link').forEach(el => {
-  el.addEventListener('mousemove', e => {
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left - r.width / 2) * 0.18;
-    const y = (e.clientY - r.top - r.height / 2) * 0.18;
-    el.style.transform = `translate(${x}px, ${y}px)`;
-    el.style.transition = 'transform 0.12s ease';
-  });
-  el.addEventListener('mouseleave', () => {
-    el.style.transform = 'translate(0, 0)';
-    el.style.transition = 'transform 0.5s ease';
-  });
-});
-
-// ── Skill tag stagger ──
-const tags = [...document.querySelectorAll('.skill-tag')];
-if (tags.length) {
-  tags.forEach(t => {
-    t.style.opacity = '0';
-    t.style.transform = 'translateY(8px)';
-    t.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-  });
-  const tagObs = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      tags.forEach((t, i) => {
-        setTimeout(() => { t.style.opacity = '1'; t.style.transform = 'none'; }, i * 40);
+  // --- MOBILE DRAWER ---
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  if (hamburger && drawer) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
       });
-      tagObs.disconnect();
+    });
+  }
+
+  // --- TEXT SCRAMBLE ON HERO (INDEX ONLY) ---
+  const nameLine1 = document.getElementById('nameLine1');
+  const nameLine2 = document.getElementById('nameLine2');
+  if (nameLine1 && nameLine2) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
+    function scrambleElement(el, finalText, duration) {
+      let start = null;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const revealUpTo = Math.floor(progress * finalText.length);
+        let result = '';
+        for (let i = 0; i < finalText.length; i++) {
+          if (finalText[i] === '.' || finalText[i] === ' ') {
+            result += finalText[i];
+          } else if (i < revealUpTo) {
+            result += finalText[i];
+          } else {
+            result += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+        el.textContent = result;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = finalText;
+      }
+      requestAnimationFrame(step);
     }
-  }, { threshold: 0.2 });
-  tagObs.observe(document.querySelector('#about') || tags[0]);
-}
+    setTimeout(() => {
+      scrambleElement(nameLine1, 'Paige', 700);
+      setTimeout(() => scrambleElement(nameLine2, 'Simm.', 800), 250);
+    }, 400);
+  }
 
-// ── Section fade-ins ──
-// Note: using .wcard not .pcard (old class name)
-const fadeSelectors = [
-  '#about .about-left',
-  '#about .about-body',
-  '#work .work-header',
-  '.wcard',
-  '#experience .exp-heading-col',
-  '.exp-item',
-  '#contact .contact-left',
-  '#contact .contact-right'
-];
+  // --- REVEAL ANIMATIONS (Intersection Observer) ---
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
 
-const fadeEls = document.querySelectorAll(fadeSelectors.join(','));
-fadeEls.forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(18px)';
-  el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-});
-
-const fadeObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'none';
-      fadeObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-
-fadeEls.forEach(el => fadeObs.observe(el));
-
-// Fallback: show everything after 2.5s no matter what
-setTimeout(() => {
-  fadeEls.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-}, 2500);
-
-// ── Smooth scroll for nav links ──
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-// ── Hamburger menu ──
-const hamburger = document.getElementById('hamburger');
-const drawer = document.getElementById('navDrawer');
-if (hamburger && drawer) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    drawer.classList.toggle('open');
-    document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
-  });
-  drawer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
+  // --- 3D CARD TILT (Bento cards) ---
+  const tiltCards = document.querySelectorAll('.bento-card');
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * -4;
+      card.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg) scale(1.015)`;
+      card.style.transition = 'transform 0.1s ease';
+      card.style.zIndex = '2';
+      card.style.position = 'relative';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) scale(1)';
+      card.style.transition = 'transform 0.5s ease';
+      card.style.zIndex = '';
     });
   });
-}
+
+  // --- MAGNETIC CONTACT LINKS ---
+  const contactLinks = document.querySelectorAll('.contact-link');
+  contactLinks.forEach(link => {
+    link.addEventListener('mousemove', e => {
+      const rect = link.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
+      link.style.transform = `translate(${x}px, ${y}px)`;
+      link.style.transition = 'transform 0.12s ease';
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.transform = 'translate(0, 0)';
+      link.style.transition = 'transform 0.5s ease';
+    });
+  });
+
+  // --- SKILL TAGS STAGGER (About section) ---
+  const skillTags = document.querySelectorAll('.skill-tag');
+  if (skillTags.length) {
+    skillTags.forEach(tag => {
+      tag.style.opacity = '0';
+      tag.style.transform = 'translateY(8px)';
+      tag.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    });
+    const skillObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        skillTags.forEach((tag, i) => {
+          setTimeout(() => {
+            tag.style.opacity = '1';
+            tag.style.transform = 'none';
+          }, i * 40);
+        });
+        skillObserver.disconnect();
+      }
+    }, { threshold: 0.2 });
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) skillObserver.observe(aboutSection);
+  }
+
+  // --- CASE STUDY SECTION REVEAL (for case study pages) ---
+  const csSections = document.querySelectorAll('.cs-section');
+  if (csSections.length) {
+    const csObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          csObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    csSections.forEach(section => csObserver.observe(section));
+  }
+
+  // --- SMOOTH SCROLL FOR ANCHOR LINKS ---
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+})();
