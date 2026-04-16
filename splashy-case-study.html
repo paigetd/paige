@@ -8,88 +8,9 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="case-study.css">
   <style>
-    /* Splashy-specific hero background */
-    .cs-hero-bg {
+    /* Splashy-specific hero blob overrides (already handled by .cs-hero.splashy class) */
+    .cs-hero.splashy .cs-hero-bg {
       background: linear-gradient(160deg, #0d2a3a 0%, #0a0a08 65%);
-    }
-    .cs-hero-bg::after {
-      background: radial-gradient(ellipse at 60% 30%, rgba(100,190,210,0.12) 0%, transparent 55%);
-    }
-    .flow-box--teal {
-      background: rgba(100,200,220,0.12);
-      border-color: rgba(100,200,220,0.3);
-      color: #6ecfe0;
-    }
-    .phones-row {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    .phone-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .phone-wrap img {
-      width: 100px;
-      height: 216px;
-      object-fit: cover;
-      border-radius: 18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      transition: transform 0.4s;
-    }
-    .phone-wrap:hover img {
-      transform: translateY(-8px);
-    }
-    .phone-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-top: 0.8rem;
-    }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .prob {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 4px;
-      padding: 1.5rem;
-      position: relative;
-    }
-    .prob::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-    }
-    .prob-n {
-      font-family: var(--serif);
-      font-size: 2rem;
-      font-style: italic;
-      color: rgba(200,169,110,0.1);
-      margin-bottom: 0.6rem;
-    }
-    .prob-t {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--white);
-      margin-bottom: 0.4rem;
-    }
-    .prob-b {
-      font-size: 0.8rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.5);
-    }
-    @media (max-width: 768px) {
-      .problem-grid { grid-template-columns: 1fr; }
-      .phones-row img { width: 70px; height: 150px; }
     }
   </style>
 </head>
@@ -118,7 +39,7 @@
     <a href="index.html#contact">Contact</a>
   </div>
 
-  <div class="cs-hero">
+  <div class="cs-hero splashy">
     <div class="cs-hero-bg"></div>
     <div class="cs-hero-top">
       <span class="cs-eyebrow">Case Study — UX Research, Mobile App Design</span>
@@ -149,11 +70,11 @@
         <div class="body-text">
           <p>For my university capstone, I designed <strong>Splashy</strong>, a gamified mobile app that encourages children to adopt eco-friendly habits in their everyday lives. Kids complete real-world quests, earn ocean creatures as rewards, and watch their personal ocean transform from polluted to thriving.</p>
           <p>The project ran for one semester and required me to conduct original user research, define the product concept, design and iterate on the UI, and produce a fully interactive Figma prototype. Every character, creature, and illustration was <strong>hand-drawn in Adobe Illustrator.</strong></p>
-          <div class="impact-row" style="margin-top:1.5rem;">
-            <div class="impact-item"><p class="impact-val">6</p><p class="impact-label">Children interviewed in research phase</p></div>
-            <div class="impact-item"><p class="impact-val">3</p><p class="impact-label">Major design iterations before final</p></div>
-            <div class="impact-item"><p class="impact-val">4</p><p class="impact-label">Core screens in the app flow</p></div>
-            <div class="impact-item"><p class="impact-val">100%</p><p class="impact-label">Illustration hand-drawn in Illustrator</p></div>
+          <div class="impact-row">
+            <div class="impact-item"><p class="impact-val">6</p><p class="impact-label">Children interviewed</p></div>
+            <div class="impact-item"><p class="impact-val">3</p><p class="impact-label">Major design iterations</p></div>
+            <div class="impact-item"><p class="impact-val">4</p><p class="impact-label">Core screens</p></div>
+            <div class="impact-item"><p class="impact-val">100%</p><p class="impact-label">Hand-drawn illustration</p></div>
           </div>
         </div>
       </div>
@@ -213,7 +134,7 @@
     <div class="inner">
       <span class="section-label">04 — User Flow</span>
       <h2 class="section-heading">Core flow: real-world action to in-app reward.</h2>
-      <p style="font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:55ch;line-height:1.7;">Mapping this flow was critical. The loop between real-world action and in-app reward needed to be short and satisfying, or kids would disengage.</p>
+      <p class="body-text" style="max-width:55ch; margin-bottom:0.5rem;">Mapping this flow was critical. The loop between real-world action and in-app reward needed to be short and satisfying, or kids would disengage.</p>
       <div class="user-flow">
         <div class="flow-step"><div class="flow-box">Sign up + questionnaire</div></div>
         <div class="flow-arrow"></div>
@@ -235,15 +156,15 @@
     <div class="inner">
       <span class="section-label">05 — Wireframes</span>
       <h2 class="section-heading">Starting rough, refining fast.</h2>
-      <p style="font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:55ch;line-height:1.7;margin-bottom:0.5rem;">I sketched initial layouts before moving into Figma. The early versions were deliberately simplified to test navigation logic before investing in visuals.</p>
+      <p class="body-text" style="max-width:55ch; margin-bottom:0.5rem;">I sketched initial layouts before moving into Figma. The early versions were deliberately simplified to test navigation logic before investing in visuals.</p>
       <div class="wireframes">
         <div class="wireframe">
           <div class="wf-bar"><div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div></div>
           <div class="wf-body">
-            <div class="wf-block" style="height:60px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:rgba(255,255,255,0.2);">Logo / Mascot</div>
+            <div class="wf-block" style="height:60px; display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:rgba(255,255,255,0.2);">Logo / Mascot</div>
             <div class="wf-line wf-line--med" style="margin:0.3rem auto;"></div>
             <div class="wf-block--btn" style="margin:0.5rem auto;"></div>
-            <div class="wf-block--btn" style="margin:0 auto;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);"></div>
+            <div class="wf-block--btn" style="margin:0 auto; background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.15);"></div>
           </div>
           <div class="wf-label">Splash / Onboarding</div>
           <div class="wf-version">v1 — Functional but no personality, kids disengaged</div>
@@ -252,30 +173,30 @@
           <div class="wf-bar"><div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div></div>
           <div class="wf-body">
             <div class="wf-line wf-line--short"></div>
-            <div class="wf-block wf-block--tall" style="display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:rgba(255,255,255,0.2);">Quest card</div>
+            <div class="wf-block wf-block--tall" style="display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:rgba(255,255,255,0.2);">Quest card</div>
             <div class="wf-line wf-line--full"></div>
             <div class="wf-line wf-line--med"></div>
             <div class="wf-block--btn"></div>
           </div>
           <div class="wf-label">Quest Screen — v1</div>
-          <div class="wf-version">v1 — Text-heavy layout caused kids to skip instructions entirely</div>
+          <div class="wf-version">v1 — Text-heavy layout caused kids to skip instructions</div>
         </div>
         <div class="wireframe">
           <div class="wf-bar"><div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div></div>
           <div class="wf-body">
             <div class="wf-line wf-line--short"></div>
-            <div class="wf-block" style="height:35px;display:flex;align-items:center;padding:0 0.5rem;gap:0.4rem;">
+            <div class="wf-block" style="height:35px; display:flex; align-items:center; padding:0 0.5rem; gap:0.4rem;">
               <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
               <div class="wf-line wf-line--med" style="margin:0;"></div>
             </div>
             <div class="wf-line wf-line--full"></div>
-            <div style="background:rgba(255,255,255,0.04);border-radius:3px;padding:0.4rem;margin:0.2rem 0;">
-              <div class="wf-line wf-line--full" style="height:6px;background:rgba(200,169,110,0.2);"></div>
+            <div style="background:rgba(255,255,255,0.04); border-radius:3px; padding:0.4rem; margin:0.2rem 0;">
+              <div class="wf-line wf-line--full" style="height:6px; background:rgba(200,169,110,0.2);"></div>
             </div>
             <div class="wf-block--btn"></div>
           </div>
           <div class="wf-label">Quest Screen — v3</div>
-          <div class="wf-version">v3 — Icon-led, minimal text, kids understood immediately in testing</div>
+          <div class="wf-version">v3 — Icon-led, minimal text, kids understood immediately</div>
         </div>
       </div>
     </div>
@@ -301,7 +222,7 @@
     <div class="inner">
       <span class="section-label">07 — Testing & Iteration</span>
       <h2 class="section-heading">What didn't work, and what I changed.</h2>
-      <p style="font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:55ch;line-height:1.7;margin-bottom:1.5rem;">I tested early prototypes with three of the original research participants. Their responses were direct — kids don't sugarcoat feedback.</p>
+      <p class="body-text" style="max-width:55ch; margin-bottom:1.5rem;">I tested early prototypes with three of the original research participants. Their responses were direct — kids don't sugarcoat feedback.</p>
       <div class="iterations">
         <div class="iteration iteration--problem">
           <span class="iteration-tag">Problem found in testing</span>
@@ -366,7 +287,7 @@
     <div class="inner">
       <span class="section-label">09 — Reflection</span>
       <div class="reflect-wrap">
-        <h2 class="section-heading" style="margin-bottom:0;max-width:none;">What this taught me.</h2>
+        <h2 class="section-heading" style="margin-bottom:0; max-width:none;">What this taught me.</h2>
         <div class="reflect-body">
           <blockquote>"Designing for children is humbling. Every assumption you have about how users think gets stripped away the moment you actually talk to them."</blockquote>
           <p>The biggest lesson from this project was that <strong>research isn't optional, it's structural.</strong> I started with assumptions about what kids needed. The interviews showed me something completely different. The collection mechanic came from a child mentioning Pokémon. The named ocean came from a kid saying they'd want to show their friends. The best design decisions weren't mine — they came from listening.</p>
