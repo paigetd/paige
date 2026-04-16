@@ -8,161 +8,8 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="case-study.css">
   <style>
-    /* Hunza-specific hero background */
-    .cs-hero-bg {
+    .cs-hero.hunza .cs-hero-bg {
       background: linear-gradient(160deg, #1c1b14 0%, #0a0a08 60%);
-    }
-    .cs-hero-bg::after {
-      background: radial-gradient(ellipse at 65% 35%, rgba(200,169,110,0.1) 0%, transparent 55%);
-    }
-    .ba {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .ba-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .ba-label.bef { color: rgba(255,255,255,0.4); }
-    .ba-label.aft { color: var(--accent); }
-    .badge {
-      display: inline-block;
-      padding: 0.1rem 0.5rem;
-      border-radius: 100px;
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-    }
-    .badge.bef {
-      background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.5);
-    }
-    .badge.aft {
-      background: rgba(200,169,110,0.15);
-      color: var(--accent);
-    }
-    .ba-img {
-      width: 100%;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: opacity 0.3s;
-    }
-    .ba-img:hover { opacity: 0.88; }
-    .ba-cap {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 0.65rem;
-      line-height: 1.5;
-    }
-    .role-wrap {
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .role-list {
-      list-style: none;
-    }
-    .role-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.55;
-    }
-    .role-item:first-child {
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .check {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(200,169,110,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--accent);
-    }
-    .aside-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 4px;
-      padding: 1.4rem;
-      margin-bottom: 0.8rem;
-    }
-    .aside-box:last-child { margin-bottom: 0; }
-    .aside-title {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.9rem;
-    }
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .tag {
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.28rem 0.7rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px;
-      color: rgba(255,255,255,0.5);
-    }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .prob {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 4px;
-      padding: 1.5rem;
-      position: relative;
-    }
-    .prob::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-    }
-    .prob-n {
-      font-family: var(--serif);
-      font-size: 2rem;
-      font-style: italic;
-      color: rgba(200,169,110,0.1);
-      margin-bottom: 0.6rem;
-    }
-    .prob-t {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--white);
-      margin-bottom: 0.4rem;
-    }
-    .prob-b {
-      font-size: 0.8rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.5);
-    }
-    @media (max-width: 768px) {
-      .ba { grid-template-columns: 1fr; }
-      .role-wrap { grid-template-columns: 1fr; gap: 2rem; }
-      .problem-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -191,7 +38,7 @@
     <a href="index.html#contact">Contact</a>
   </div>
 
-  <div class="cs-hero">
+  <div class="cs-hero hunza">
     <div class="cs-hero-bg"></div>
     <div class="cs-hero-top">
       <span class="cs-eyebrow">Case Study — UX/UI, Web Development</span>
@@ -222,11 +69,11 @@
         <div class="body-text">
           <p>Hunza Lighting and LuxR are two distinct premium outdoor lighting brands that needed to be merged onto a single website without losing the identity of either. I was brought on as Marketing Coordinator and ended up leading the full digital overhaul — from UX strategy through to building and maintaining the site in WordPress with custom HTML, CSS, JS, and PHP.</p>
           <p>This wasn't a greenfield project. The existing Hunza site had real structural problems, a broken product database, and three different user audiences who were all being served the same generic experience. <strong>Everything had to work properly, not just look good.</strong></p>
-          <div class="impact-row" style="margin-top:1.5rem;">
-            <div class="impact-item"><p class="impact-val">2</p><p class="impact-label">Brands merged into one coherent platform</p></div>
-            <div class="impact-item"><p class="impact-val">3</p><p class="impact-label">Distinct user audiences given tailored journeys</p></div>
-            <div class="impact-item"><p class="impact-val">SQL</p><p class="impact-label">Database fix that unblocked accurate pricing</p></div>
-            <div class="impact-item"><p class="impact-val">NZ</p><p class="impact-label">Premium local brand, elevated globally</p></div>
+          <div class="impact-row">
+            <div class="impact-item"><p class="impact-val">2</p><p class="impact-label">Brands merged</p></div>
+            <div class="impact-item"><p class="impact-val">3</p><p class="impact-label">Audience journeys</p></div>
+            <div class="impact-item"><p class="impact-val">SQL</p><p class="impact-label">Database fix</p></div>
+            <div class="impact-item"><p class="impact-val">NZ</p><p class="impact-label">Premium local brand</p></div>
           </div>
         </div>
       </div>
@@ -243,10 +90,10 @@
           <p>Before starting design work, I audited the existing site thoroughly. The visual design issues were obvious. But digging deeper revealed structural problems that no amount of good design could paper over. The site was <strong>actively losing enquiries</strong> because users couldn't find what they needed, and the product database had pricing errors caused by SKU conflicts in the backend.</p>
         </div>
         <div class="problem-grid">
-          <div class="prob"><p class="prob-n">01</p><p class="prob-t">No audience distinction</p><p class="prob-b">Architects specifying commercial projects, homeowners browsing, and trade distributors all landed on the same page with no differentiated path forward.</p></div>
-          <div class="prob"><p class="prob-n">02</p><p class="prob-t">Visual design undercut the brand</p><p class="prob-b">Hunza products are precision-engineered and expensive. The website looked cheap. Every page was actively damaging trust with potential customers.</p></div>
-          <div class="prob"><p class="prob-n">03</p><p class="prob-t">Broken product database</p><p class="prob-b">SKU conflicts in the database were causing products to display incorrect pricing — a serious problem for a brand where products cost thousands of dollars.</p></div>
-          <div class="prob"><p class="prob-n">04</p><p class="prob-t">Two brands, no unified home</p><p class="prob-b">LuxR existed as a separate site with minimal presence. Neither brand was benefiting from the relationship, and users had no way to discover both.</p></div>
+          <div class="prob"><p class="prob-n">01</p><p class="prob-t">No audience distinction</p><p class="prob-b">Architects, homeowners, and trade distributors all landed on the same page with no differentiated path forward.</p></div>
+          <div class="prob"><p class="prob-n">02</p><p class="prob-t">Visual design undercut the brand</p><p class="prob-b">Hunza products are precision-engineered and expensive. The website looked cheap, actively damaging trust.</p></div>
+          <div class="prob"><p class="prob-n">03</p><p class="prob-t">Broken product database</p><p class="prob-b">SKU conflicts were causing products to display incorrect pricing — a serious problem for products costing thousands of dollars.</p></div>
+          <div class="prob"><p class="prob-n">04</p><p class="prob-t">Two brands, no unified home</p><p class="prob-b">LuxR existed as a separate site with minimal presence. Neither brand benefited from the relationship.</p></div>
         </div>
       </div>
     </div>
@@ -257,7 +104,7 @@
     <div class="inner">
       <span class="section-label">03 — User Flow</span>
       <h2 class="section-heading">Core flow: from landing to enquiry.</h2>
-      <p style="font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:55ch;line-height:1.7;margin-bottom:0.5rem;">The original site had one path for everyone. The redesign introduced audience-based entry points — the user self-selects their context and is routed to content relevant to them.</p>
+      <p class="body-text" style="max-width:55ch; margin-bottom:0.5rem;">The original site had one path for everyone. The redesign introduced audience-based entry points — the user self-selects their context and is routed to content relevant to them.</p>
       <div class="user-flow">
         <div class="flow-step"><div class="flow-box">Homepage</div></div>
         <div class="flow-arrow"></div>
@@ -269,11 +116,11 @@
         <div class="flow-arrow"></div>
         <div class="flow-step"><div class="flow-box flow-box--accent">Enquire or find distributor</div></div>
       </div>
-      <p style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:1rem;">Previously: Homepage → Products (undifferentiated) → Contact (if they could find it). Average 6 clicks to enquiry. Redesigned to 3.</p>
+      <p style="font-size:0.78rem; color:rgba(255,255,255,0.3); margin-top:1rem;">Previously: Homepage → Products (undifferentiated) → Contact (if they could find it). Average 6 clicks to enquiry. Redesigned to 3.</p>
     </div>
   </section>
 
-  <!-- 04 Before / After -->
+  <!-- 04 Before & After -->
   <section class="cs-section">
     <div class="inner">
       <span class="section-label">04 — Before & After</span>
@@ -345,22 +192,22 @@
         <div class="iteration iteration--problem">
           <span class="iteration-tag">Feedback from distributors</span>
           <p class="iteration-title">Product filtering wasn't granular enough</p>
-          <p class="iteration-body">Trade distributors found they couldn't filter products by the specifications they actually spec to (IP rating, beam angle, wattage). They were having to manually cross-reference external documents.</p>
+          <p class="iteration-body">Trade distributors couldn't filter by IP rating, beam angle, wattage. They were manually cross-referencing external documents.</p>
         </div>
         <div class="iteration iteration--solution">
           <span class="iteration-tag">What I changed</span>
           <p class="iteration-title">Added technical spec filtering to product listings</p>
-          <p class="iteration-body">Extended the product filter system to include technical attributes. Distributors could now filter by IP rating, wattage, and application type directly from the listing page. Feedback after launch was positive.</p>
+          <p class="iteration-body">Extended filter system to include technical attributes. Distributors could now filter by IP rating, wattage, and application type directly from the listing page. Positive feedback after launch.</p>
         </div>
         <div class="iteration iteration--problem">
           <span class="iteration-tag">Feedback from sales team</span>
           <p class="iteration-title">LuxR felt like an afterthought on the merged site</p>
-          <p class="iteration-body">Sales reps reported that customers were asking whether LuxR still existed as a brand — the merger had made it feel like it was being absorbed rather than featured.</p>
+          <p class="iteration-body">Sales reps reported customers asking whether LuxR still existed — the merger made it feel like it was being absorbed.</p>
         </div>
         <div class="iteration iteration--solution">
           <span class="iteration-tag">What I changed</span>
           <p class="iteration-title">Gave LuxR dedicated landing pages and brand expression</p>
-          <p class="iteration-body">Created brand-specific section pages for LuxR within the unified site structure — retaining the shared navigation while giving LuxR its own visual identity and product pages. Customer confusion reduced significantly.</p>
+          <p class="iteration-body">Created brand-specific section pages for LuxR within the unified site structure — retaining shared navigation while giving LuxR its own visual identity. Customer confusion reduced significantly.</p>
         </div>
       </div>
       <div class="constraints">
@@ -384,12 +231,12 @@
         <div class="outcome">
           <svg class="outcome-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3L25 9v10L14 25 3 19V9z"/><path d="M14 3v22M3 9l11 7 11-7"/></svg>
           <p class="outcome-t">Unified brand, stronger presence</p>
-          <p class="outcome-b">Hunza and LuxR on one platform reduced confusion and improved perceived credibility. Sales reps reported fewer "can you explain how the brands are related" queries from customers post-launch.</p>
+          <p class="outcome-b">Hunza and LuxR on one platform reduced confusion and improved perceived credibility. Sales reps reported fewer "explain the brands" queries post-launch.</p>
         </div>
         <div class="outcome">
           <svg class="outcome-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="11"/><path d="M14 8v6l4 2"/></svg>
           <p class="outcome-t">Reduced friction to enquiry</p>
-          <p class="outcome-b">Audience-based navigation cut the path from landing to enquiry from 6 clicks to 3. Distributor feedback confirmed the trade section was significantly easier to navigate for specifying products.</p>
+          <p class="outcome-b">Audience-based navigation cut the path from landing to enquiry from 6 clicks to 3. Distributor feedback confirmed the trade section was significantly easier to navigate.</p>
         </div>
         <div class="outcome">
           <svg class="outcome-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="22" height="16" rx="2"/><path d="M9 7V5a2 2 0 0 1 4 0v2M15 7V5a2 2 0 0 1 4 0v2"/></svg>
@@ -405,7 +252,7 @@
     <div class="inner">
       <span class="section-label">09 — Reflection</span>
       <div class="reflect-wrap">
-        <h2 class="section-heading" style="margin-bottom:0;max-width:none;">What I took away.</h2>
+        <h2 class="section-heading" style="margin-bottom:0; max-width:none;">What I took away.</h2>
         <div class="reflect-body">
           <blockquote>"Merging two brands isn't just a design challenge. It's a negotiation between identities, audiences, and business reality. Getting it right meant listening before designing."</blockquote>
           <p>This project taught me that <strong>the hardest problems aren't visual, they're structural.</strong> Before a single screen was designed, I needed to understand who was using the site, what they needed, and how two distinct brands could share space without one feeling secondary. The SQL work in particular showed me that being a well-rounded designer means not stopping at the boundary between design and engineering.</p>
