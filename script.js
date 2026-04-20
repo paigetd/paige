@@ -1,6 +1,10 @@
+/* Paige Simm — Combined Script */
+
 (function() {
-  // --- SCROLL PROGRESS BAR ---
-  const progressBar = document.getElementById('scroll-bar');
+  'use strict';
+
+  // ---------- SCROLL PROGRESS BAR ----------
+  const progressBar = document.getElementById('scroll-bar') || document.getElementById('reading-progress');
   if (progressBar) {
     window.addEventListener('scroll', () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -9,16 +13,16 @@
     });
   }
 
-  // --- NAV GLASS EFFECT ---
-  const nav = document.querySelector('.nav');
+  // ---------- NAV GLASS EFFECT ----------
+  const nav = document.querySelector('.nav') || document.getElementById('nav');
   if (nav) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 60) nav.classList.add('scrolled');
+      if (window.scrollY > 20) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
     });
   }
 
-  // --- MOBILE DRAWER ---
+  // ---------- MOBILE DRAWER ----------
   const hamburger = document.getElementById('hamburger');
   const drawer = document.getElementById('mobileDrawer');
   if (hamburger && drawer) {
@@ -36,7 +40,7 @@
     });
   }
 
-  // --- TEXT SCRAMBLE ON HERO (INDEX ONLY) ---
+  // ---------- TEXT SCRAMBLE ON HERO (INDEX ONLY) ----------
   const nameLine1 = document.getElementById('nameLine1');
   const nameLine2 = document.getElementById('nameLine2');
   if (nameLine1 && nameLine2) {
@@ -69,32 +73,25 @@
     }, 400);
   }
 
-  // --- REVEAL ANIMATIONS (homepage) ---
+  // ---------- REVEAL ON SCROLL (Combined: homepage + case studies) ----------
   const revealElements = document.querySelectorAll('.reveal');
+  const csSections = document.querySelectorAll('.cs-section');
+  
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in');
+        entry.target.classList.add('visible'); // for cs-section compatibility
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  
   revealElements.forEach(el => revealObserver.observe(el));
+  csSections.forEach(section => revealObserver.observe(section));
 
-  // --- CASE STUDY SECTION REVEAL (with fallback) ---
-  const csSections = document.querySelectorAll('.cs-section');
+  // Fallback: force reveal after 1 second for any cs-section not yet visible
   if (csSections.length) {
-    const csObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          csObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.05 });
-    csSections.forEach(section => csObserver.observe(section));
-
-    // FALLBACK: after 1 second, reveal any section that still isn't visible
     setTimeout(() => {
       csSections.forEach(section => {
         if (!section.classList.contains('visible')) {
@@ -104,7 +101,67 @@
     }, 1000);
   }
 
-  // --- 3D CARD TILT (Bento cards) ---
+  // ---------- STICKY SECTION DOTS (Case Studies) ----------
+  const sections = document.querySelectorAll('.cs-section');
+  const dotsWrap = document.getElementById('section-dots');
+  if (dotsWrap && sections.length) {
+    // Create dots
+    sections.forEach((sec, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'sdot';
+      dot.title = sec.querySelector('.section-label')?.textContent || (i + 1);
+      dot.addEventListener('click', () => sec.scrollIntoView({ behavior: 'smooth' }));
+      dotsWrap.appendChild(dot);
+    });
+    
+    const dots = dotsWrap.querySelectorAll('.sdot');
+    const dotObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = [...sections].indexOf(entry.target);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      });
+    }, { threshold: 0.4 });
+    
+    sections.forEach(s => dotObserver.observe(s));
+  }
+
+  // ---------- ANIMATED STAT COUNTERS ----------
+  function animateCounter(el) {
+    const raw = el.dataset.target;
+    if (!raw) return;
+    // Handle non-numeric values like "B2B", "SQL"
+    if (!/^\d/.test(raw)) {
+      el.textContent = raw;
+      return;
+    }
+    const end = parseFloat(raw.replace(/[^0-9.]/g, ''));
+    const suffix = raw.replace(/[\d.]/g, '');
+    let start = 0;
+    const duration = 1200;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = (Number.isInteger(end) ? Math.round(eased * end) : (eased * end).toFixed(1)) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  document.querySelectorAll('.stat-pill-val[data-target]').forEach(el => counterObserver.observe(el));
+
+  // ---------- 3D CARD TILT (Bento Cards) ----------
   const tiltCards = document.querySelectorAll('.bento-card');
   tiltCards.forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -123,7 +180,7 @@
     });
   });
 
-  // --- MAGNETIC CONTACT LINKS ---
+  // ---------- MAGNETIC CONTACT LINKS ----------
   const contactLinks = document.querySelectorAll('.contact-link');
   contactLinks.forEach(link => {
     link.addEventListener('mousemove', e => {
@@ -139,7 +196,7 @@
     });
   });
 
-  // --- SKILL TAGS STAGGER ---
+  // ---------- SKILL TAGS STAGGER ----------
   const skillTags = document.querySelectorAll('.skill-tag');
   if (skillTags.length) {
     skillTags.forEach(tag => {
@@ -147,6 +204,7 @@
       tag.style.transform = 'translateY(8px)';
       tag.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
     });
+    
     const skillObserver = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         skillTags.forEach((tag, i) => {
@@ -158,15 +216,16 @@
         skillObserver.disconnect();
       }
     }, { threshold: 0.2 });
+    
     const aboutSection = document.getElementById('about');
     if (aboutSection) skillObserver.observe(aboutSection);
   }
 
-  // --- SMOOTH SCROLL FOR ANCHOR LINKS ---
+  // ---------- SMOOTH SCROLL FOR ANCHOR LINKS ----------
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
+      if (targetId === '#' || targetId === '#!') return;
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
@@ -174,4 +233,5 @@
       }
     });
   });
+
 })();
