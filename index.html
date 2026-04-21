@@ -6,377 +6,12 @@
   <title>Paige Simm — Interface Designer</title>
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-
-  /* =============================================
-     HOMEPAGE IMPROVEMENTS — layered on style.css
-     ============================================= */
-
-  /* TICKER STRIP */
-  .ticker {
-    background: var(--dark);
-    padding: 0.6rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    z-index: 10;
-  }
-  .ticker-track {
-    display: inline-flex;
-    animation: ticker 28s linear infinite;
-  }
-  .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0 2.2rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-  }
-  .ticker-item strong { color: var(--accent2); font-weight: 500; }
-  .ticker-sep { color: var(--accent); opacity: 0.5; }
-  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-  /* HERO — improved layout */
-  #hero {
-    min-height: 100svh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    padding: 0;
-    position: relative;
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-  }
-
-  /* top bar row */
-  .hero-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 7rem 2.5rem 0;
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeInUp 0.7s 0.3s forwards;
-  }
-  .hero-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .available-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    background: rgba(92,186,120,0.12);
-    border: 1px solid rgba(92,186,120,0.3);
-    border-radius: 100px;
-    padding: 0.35rem 0.85rem;
-    color: #3a8a54;
-    backdrop-filter: blur(8px);
-  }
-  .dot-pulse {
-    width: 7px; height: 7px;
-    background: #5cba78;
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-  }
-  .dot-pulse::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 1px solid #5cba78;
-    animation: pulse 2s infinite;
-  }
-
-  /* middle row: name + headshot side by side */
-  .hero-center {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 3rem;
-    padding: 2rem 2.5rem 0;
-    position: relative;
-    z-index: 2;
-  }
-  .hero-name {
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: clamp(5rem, 13vw, 12rem);
-    line-height: 0.88;
-    letter-spacing: -0.03em;
-    margin: 0;
-  }
-  .hero-name-line {
-    display: block;
-    opacity: 0;
-    transform: translateY(24px);
-    animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .hero-name-line:first-child  { animation-delay: 0.1s; }
-  .hero-name-line:last-child   { animation-delay: 0.22s; font-style: italic; color: var(--accent); }
-
-  /* headshot — bigger, rectangular, editorial */
-  .hero-photo-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.75rem;
-    padding-bottom: 0.4rem;
-    opacity: 0;
-    animation: fadeInUp 0.8s 0.8s forwards;
-    flex-shrink: 0;
-  }
-  .hero-headshot {
-    width: clamp(130px, 16vw, 200px);
-    aspect-ratio: 3/4;
-    border-radius: 18px;
-    overflow: hidden;
-    background: linear-gradient(145deg, #e8d5c0, #c8a98a);
-    border: 2px solid rgba(255,255,255,0.7);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.14);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero-headshot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-  .hero-headshot-placeholder {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.6);
-    text-align: center;
-    line-height: 1.5;
-    padding: 1rem;
-  }
-  .glass-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.85rem;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 100px;
-    backdrop-filter: blur(16px) saturate(150%);
-    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.8);
-    font-size: 0.66rem;
-    letter-spacing: 0.08em;
-    color: var(--dark);
-    white-space: nowrap;
-  }
-  .glass-pill-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-  .glass-pill-dot.green { background: #5cba78; }
-
-  /* stat pills */
-  .hero-stats {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    padding: 1.5rem 2.5rem 0;
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeInUp 0.8s 0.55s forwards;
-  }
-  .hero-stat {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 1rem;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    backdrop-filter: blur(20px) saturate(180%);
-    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.9);
-  }
-  .hero-stat-val {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.3rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .hero-stat-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    line-height: 1.3;
-    max-width: 9rem;
-  }
-
-  /* bottom strip */
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 1.5rem 2.5rem 3.5rem;
-    margin-top: 1rem;
-    border-top: 1px solid var(--border);
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeInUp 0.8s 0.7s forwards;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-  .hero-text {
-    font-size: clamp(0.9rem, 1.4vw, 1.05rem);
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 46ch;
-  }
-  .hero-text strong { color: var(--dark); font-weight: 500; }
-  .hero-scroll {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-  .hero-scroll:hover { color: var(--accent); }
-  .hero-scroll svg { transition: transform 0.3s; }
-  .hero-scroll:hover svg { transform: translateY(4px); }
-
-  /* blobs */
-  .hero-bg-blob  { position:absolute;top:-10%;right:-10%;width:65vw;max-width:800px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(240,164,74,0.28) 0%,rgba(232,98,42,0.12) 45%,transparent 70%);animation:blobFloat 14s ease-in-out infinite;pointer-events:none; }
-  .hero-bg-blob2 { position:absolute;bottom:-10%;left:-15%;width:55vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 60% 60%,rgba(232,98,42,0.15) 0%,rgba(200,169,110,0.08) 50%,transparent 70%);animation:blobFloat2 18s ease-in-out infinite;pointer-events:none; }
-  .hero-bg-blob3 { position:absolute;top:30%;left:25%;width:30vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(240,164,74,0.08) 0%,transparent 65%);animation:blobFloat 22s ease-in-out infinite reverse;pointer-events:none; }
-
-  /* WORK: taller image zones */
-  .full-width .card-img { flex: 1.4; height: 380px; }
-  .card-img { height: 260px; }
-  .phones-container { height: 260px; }
-  .phone-mock { width: 88px; height: 190px; }
-  .small-card .print-placeholder,
-  .small-card .social-placeholder { height: 180px; }
-
-  /* ABOUT: add a decorative side panel */
-  .about-aside {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin-top: 1.5rem;
-  }
-  .about-stat-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1rem 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .about-stat-card:hover { border-color: var(--accent); transform: translateX(4px); }
-  .about-stat-val {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.6rem;
-    color: var(--accent);
-    line-height: 1;
-    flex-shrink: 0;
-    min-width: 2.5rem;
-  }
-  .about-stat-label { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
-  .about-stat-label strong { color: var(--dark); font-weight: 500; display: block; }
-
-  /* CONTACT: add a visual left panel */
-  .contact-visual {
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 45%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .contact-orb {
-    position: absolute;
-    border-radius: 50%;
-  }
-  .contact-orb-1 {
-    width: 60vw; aspect-ratio: 1;
-    bottom: -30%; left: -20%;
-    background: radial-gradient(circle, rgba(232,98,42,0.12), transparent 65%);
-  }
-  .contact-orb-2 {
-    width: 30vw; aspect-ratio: 1;
-    top: 10%; left: 10%;
-    background: radial-gradient(circle, rgba(240,164,74,0.08), transparent 65%);
-    animation: blobFloat 16s ease-in-out infinite;
-  }
-
-  /* KEYFRAMES */
-  @keyframes slideUp   { to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeInUp  { to { opacity: 1; } }
-  @keyframes blobFloat  { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-3%,4%) scale(1.04)} 66%{transform:translate(4%,-3%) scale(0.97)} }
-  @keyframes blobFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(5%,-5%) scale(1.06)} 75%{transform:translate(-3%,3%) scale(0.95)} }
-  @keyframes pulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:0;transform:scale(1.8)} }
-
-  /* MOBILE */
-  @media (max-width: 768px) {
-    .ticker { display: none; }
-    .hero-topbar { padding: 5.5rem 1.2rem 0; flex-wrap: wrap; gap: 0.6rem; }
-    .hero-center { grid-template-columns: 1fr; padding: 1.5rem 1.2rem 0; gap: 1.5rem; }
-    .hero-photo-col { flex-direction: row; align-items: center; }
-    .hero-headshot { width: 100px; }
-    .hero-stats { padding: 1rem 1.2rem 0; display: none; }
-    .hero-bottom { padding: 1.5rem 1.2rem 3rem; flex-direction: column; align-items: flex-start; }
-    .full-width .card-img { height: 220px; }
-    .card-img { height: 220px; }
-    .about-aside { display: none; }
-  }
-  </style>
 </head>
 <body>
 
   <div id="scroll-bar"></div>
 
-  <!-- TICKER STRIP -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span class="ticker-item"><strong>UX/UI Design</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Front-End Development</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Illustration</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>WordPress + PHP</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Print + Collateral</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>SQL</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Brand Identity</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Figma</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>UX Research</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Social Media</strong> <span class="ticker-sep">✦</span></span>
-      <!-- duplicate for seamless loop -->
-      <span class="ticker-item"><strong>UX/UI Design</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Front-End Development</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Illustration</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>WordPress + PHP</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Print + Collateral</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>SQL</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Brand Identity</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Figma</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>UX Research</strong> <span class="ticker-sep">✦</span></span>
-      <span class="ticker-item"><strong>Social Media</strong> <span class="ticker-sep">✦</span></span>
-    </div>
-  </div>
-
-  <nav class="nav" id="nav">
+  <nav class="nav">
     <a href="#hero" class="nav-logo">Paige Simm.</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -396,100 +31,61 @@
     <a href="#contact">Contact</a>
   </div>
 
-  <!-- ======= HERO ======= -->
+  <!-- Replace the existing #hero section content with this -->
   <section id="hero">
     <div class="hero-bg-blob"></div>
     <div class="hero-bg-blob2"></div>
     <div class="hero-bg-blob3"></div>
 
-    <!-- top bar -->
-    <div class="hero-topbar">
+    <div class="hero-top">
       <span class="hero-tag">Interface Designer · New Zealand</span>
-      <div class="available-badge">
-        <span class="dot-pulse"></span>
-        Open to work
-      </div>
+      </span>
     </div>
 
-    <!-- name + photo -->
-    <div class="hero-center">
+    <!-- Headshot + floating pills (top right) -->
+    <div class="hero-extras">
+      <div class="hero-headshot">
+        <!-- Drop your photo in as headshot.jpg and swap the placeholder below -->
+        <!-- <img src="headshot.jpg" alt="Paige Simm"> -->
+        <div class="hero-headshot-placeholder">put<br>photo<br>here</div>
+      </div>
+      <div class="glass-pill"><span class="glass-pill-dot"></span>Auckland, NZ</div>
+      <div class="glass-pill"><span class="glass-pill-dot"></span>Open to work</div>
+    </div>
+
+    <div>
       <h1 class="hero-name">
-        <span class="hero-name-line">Paige</span>
-        <span class="hero-name-line">Simm.</span>
+        <span class="hero-name-line" id="nameLine1">Paige</span>
+        <span class="hero-name-line" id="nameLine2">Simm.</span>
       </h1>
-      <div class="hero-photo-col">
-        <div class="glass-pill"><span class="glass-pill-dot green"></span>Auckland, NZ</div>
-        <div class="hero-headshot">
-          <!-- swap placeholder for: <img src="headshot.jpg" alt="Paige Simm"> -->
-          <div class="hero-headshot-placeholder">Add your<br>photo here</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- stat pills -->
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <span class="hero-stat-val">3+</span>
-        <span class="hero-stat-label">Years experience</span>
+   
+      <div class="hero-bottom">
+        <p class="hero-text">
+          <strong>Interface designer</strong> with a knack for front-end. I make things look good, work well, and feel considered. Website rebuilds, UX research, print, social; whatever it takes.
+        </p>
+        <a href="#work" class="hero-scroll">
+          See the work
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2v12M2 9l6 6 6-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">5</span>
-        <span class="hero-stat-label">Projects shipped</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">BDes</span>
-        <span class="hero-stat-label">Interface Design, Waikato</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-val">NZ</span>
-        <span class="hero-stat-label">Based, open globally</span>
-      </div>
-    </div>
-
-    <!-- bottom strip -->
-    <div class="hero-bottom">
-      <p class="hero-text">
-        <strong>Interface designer</strong> with a knack for front-end. I make things look good, work well, and feel considered. Website rebuilds, UX research, print, social; whatever it takes.
-      </p>
-      <a href="#work" class="hero-scroll">
-        See the work
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 2v12M2 9l6 6 6-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
     </div>
   </section>
 
-  <!-- ======= ABOUT ======= -->
+  
+
   <section id="about">
     <div class="about-grid">
       <div class="reveal">
         <span class="section-label">About me</span>
         <h2 class="section-heading">Designer who actually ships.</h2>
-
-        <div class="about-aside">
-          <div class="about-stat-card">
-            <span class="about-stat-val">BDes</span>
-            <span class="about-stat-label"><strong>Interface Design</strong>University of Waikato, 2024</span>
-          </div>
-          <div class="about-stat-card">
-            <span class="about-stat-val">2</span>
-            <span class="about-stat-label"><strong>Brands launched solo</strong>Hunza + LuxR, 2023–2024</span>
-          </div>
-          <div class="about-stat-card">
-            <span class="about-stat-val">SQL</span>
-            <span class="about-stat-label"><strong>Database fix shipped</strong>Live pricing bug, caught and fixed</span>
-          </div>
-          <div class="about-stat-card">
-            <span class="about-stat-val">100%</span>
-            <span class="about-stat-label"><strong>Original illustration</strong>Every graphic hand-drawn in Illustrator</span>
-          </div>
-        </div>
       </div>
       <div>
         <div class="reveal about-text" style="transition-delay: 100ms">
           <p>Hey, I'm Paige Simm. I'm a 24-year-old interface designer based in Auckland with a <strong>Bachelor of Design (Interface Design)</strong> from the University of Waikato. I have a habit of making things look significantly better than I found them.</p>
-          <p>Most recently I was <strong>the sole designer, developer, and marketing team at Hunza Outdoor Lighting</strong> — where I rebuilt their website from scratch, fixed a database-level pricing bug with SQL, ran social media, redesigned all print collateral, and made sure everything from spec sheets to in-building signage felt polished. One person. All of it.</p>
+          <p>Most recently I was a <strong>Marketing Coordinator at a Hunza Outdoor Lighting</strong> where I rebuilt their website from scratch, fixed a database-level pricing bug with SQL, ran social media, and made sure everything from spec sheets to in-building signage felt polished.</p>
           <p>I sit at the intersection of <strong>visual design and front-end development</strong>. Equally comfortable in Figma or a code editor. Every graphic, illustration, and image across my work is <strong>hand-drawn by me in Illustrator.</strong></p>
         </div>
         <div class="skills-grid">
@@ -510,7 +106,6 @@
     </div>
   </section>
 
-  <!-- ======= WORK ======= -->
   <section id="work">
     <div class="work-header">
       <div class="reveal">
@@ -522,7 +117,6 @@
       </div>
     </div>
     <div class="bento-grid">
-
       <!-- Hunza full-width -->
       <div class="reveal" style="grid-column: 1/-1">
         <a href="hunza-case-study.html" class="bento-card full-width">
@@ -530,11 +124,11 @@
             <img src="hunza-after.png" alt="Hunza redesign" loading="lazy">
           </div>
           <div class="card-content">
-            <div class="card-meta"><span class="card-num">01</span><span class="card-cat">UX/UI · Web Development · SQL</span></div>
+            <div class="card-meta"><span class="card-num">01</span><span class="card-cat">UX/UI · Web Development</span></div>
             <h3 class="card-title">Hunza & LuxR<br><em>Website Redesign</em></h3>
-            <p class="card-desc">Two premium lighting brands, one unified site. End-to-end UX/UI, built in WordPress, plus a SQL database fix that unblocked accurate pricing across all products. Done solo — no agency, no team.</p>
+            <p class="card-desc">Two premium lighting brands, one unified site. End-to-end UX/UI plus a SQL database fix that unblocked accurate pricing across all products.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 0.8rem;">
-              <span class="exp-tag">WordPress</span><span class="exp-tag">HTML/CSS/JS</span><span class="exp-tag">SQL</span><span class="exp-tag">Brand Merge</span><span class="exp-tag">Print</span>
+              <span class="exp-tag">WordPress</span><span class="exp-tag">HTML/CSS/JS</span><span class="exp-tag">SQL</span><span class="exp-tag">Brand Merge</span>
             </div>
             <span class="card-link">View case study →</span>
           </div>
@@ -545,7 +139,7 @@
       <div class="reveal" style="transition-delay: 80ms">
         <a href="automote-case-study.html" class="bento-card">
           <div class="card-img">
-            <img src="orders 1 -1.png" alt="Automote orders" loading="lazy" style="position:absolute;top:0;left:0;width:62%;height:100%;object-fit:cover;">
+            <img src="orders 1 -1.png" alt="Automote orders" loading="lazy" style="position: absolute; top:0; left:0; width:62%; height:100%; object-fit:cover;">
             <div class="split-img">
               <img src="edit trim level.png" alt="Automote config" loading="lazy">
             </div>
@@ -553,8 +147,8 @@
           <div class="card-content">
             <div class="card-meta"><span class="card-num">02</span><span class="card-cat">B2B UX/UI · Internship</span></div>
             <h3 class="card-title">Automote<br><em>Dealer Platform</em></h3>
-            <p class="card-desc">Redesigned a broken dealership management tool used daily by car dealerships. Six pain points fixed, fully interactive Figma prototype delivered and accepted for development.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.5rem;">
+            <p class="card-desc">Redesigned a broken dealership management tool. Six pain points fixed, fully interactive Figma prototype delivered.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem;">
               <span class="exp-tag">Figma</span><span class="exp-tag">B2B UX</span><span class="exp-tag">Design Systems</span>
             </div>
             <span class="card-link">View case study →</span>
@@ -567,14 +161,14 @@
         <a href="splashy-case-study.html" class="bento-card dark-card">
           <div class="phones-container">
             <img src="splash screen.png" alt="Splash screen" class="phone-mock" loading="lazy">
-            <img src="fish.png" alt="Splashy ocean" class="phone-mock" loading="lazy" style="transform:translateY(-8px);">
+            <img src="fish.png" alt="Splashy ocean" class="phone-mock" loading="lazy" style="transform: translateY(-6px);">
             <img src="quests active good.png" alt="Splashy quests" class="phone-mock" loading="lazy">
           </div>
           <div class="card-content">
             <div class="card-meta"><span class="card-num">03</span><span class="card-cat">UX Research · Mobile · Capstone</span></div>
             <h3 class="card-title">Splashy<br><em>Kids Sustainability App</em></h3>
-            <p class="card-desc">Gamified eco-habits for children aged 6–12. Research-led design, creature collection mechanics, all illustration hand-drawn in Illustrator.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.5rem;">
+            <p class="card-desc">Gamified eco-habits for children. Research-led, creature collection mechanics, all illustration hand-drawn in Illustrator.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem;">
               <span class="exp-tag">UX Research</span><span class="exp-tag">Figma</span><span class="exp-tag">Illustration</span>
             </div>
             <span class="card-link">View case study →</span>
@@ -582,41 +176,39 @@
         </a>
       </div>
 
-      <!-- Print -->
+      <!-- Small card: Print -->
       <div class="reveal" style="transition-delay: 100ms">
         <div class="bento-card small-card">
-          <div class="print-placeholder" style="height:180px"><span class="print-text">Spec<br>Sheet.</span></div>
+          <div class="print-placeholder"><span class="print-text">Spec<br>Sheet.</span></div>
           <div class="card-content">
             <span class="card-cat">Print Design · InDesign</span>
             <h3 class="card-title">Product Catalogues & Spec Sheets</h3>
-            <p class="card-desc">Lighting spec sheets and product catalogues redesigned from scratch. Clean, precise, with hand-illustrated product details.</p>
+            <p class="card-desc">Lighting spec sheets redesigned from scratch. Clean, precise, hand-illustrated.</p>
           </div>
         </div>
       </div>
 
-      <!-- Social -->
+      <!-- Small card: Social -->
       <div class="reveal" style="transition-delay: 180ms">
         <div class="bento-card small-card">
-          <div class="social-placeholder" style="height:180px">
-            <div class="social-bar" style="height:50%"></div>
-            <div class="social-bar" style="height:75%"></div>
-            <div class="social-bar" style="height:60%"></div>
-            <div class="social-bar" style="height:90%"></div>
-            <div class="social-bar" style="height:45%"></div>
-            <div class="social-bar" style="height:70%"></div>
+          <div class="social-placeholder">
+            <div class="social-bar" style="height: 50%"></div>
+            <div class="social-bar" style="height: 75%"></div>
+            <div class="social-bar" style="height: 60%"></div>
+            <div class="social-bar" style="height: 90%"></div>
+            <div class="social-bar" style="height: 45%"></div>
+            <div class="social-bar" style="height: 70%"></div>
           </div>
           <div class="card-content">
             <span class="card-cat">Social Media · Brand · Illustration</span>
             <h3 class="card-title">Social Graphics & Brand Identity</h3>
-            <p class="card-desc">Social content for a luxury lighting brand. Every graphic hand-drawn in Illustrator, managed end-to-end.</p>
+            <p class="card-desc">Social content for a luxury lighting brand. Every graphic hand-drawn in Illustrator.</p>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- ======= EXPERIENCE ======= -->
   <section id="experience">
     <div class="exp-grid">
       <div class="reveal sticky-head">
@@ -624,71 +216,25 @@
         <h2 class="section-heading">Where I've been.</h2>
       </div>
       <div>
-        <div class="reveal exp-item">
-          <div>
-            <div class="exp-date">2025 – Present</div>
-            <div class="exp-company">Hunza Outdoor Lighting</div>
-            <div class="exp-role">Marketing Coordinator</div>
-          </div>
-          <div>
-            <div class="exp-desc">Sole designer, developer, and marketer. Led the full website redesign (WordPress, HTML, CSS, JS, PHP), fixed a database pricing bug via SQL, redesigned all print collateral in InDesign, and created all social graphics hand-drawn in Illustrator.</div>
-            <div class="exp-tags"><span class="exp-tag">WordPress</span><span class="exp-tag">HTML/CSS/JS</span><span class="exp-tag">SQL</span><span class="exp-tag">InDesign</span><span class="exp-tag">Illustrator</span></div>
-          </div>
-        </div>
-        <div class="reveal exp-item" style="transition-delay:80ms">
-          <div>
-            <div class="exp-date">2023 – 2024</div>
-            <div class="exp-company">LuminateOne</div>
-            <div class="exp-role">UI/UX Design Intern · 6 months</div>
-          </div>
-          <div>
-            <div class="exp-desc">Redesigned Automote, a dealer management platform used daily by car dealerships. Delivered a fully interactive Figma prototype covering core workflows, accepted as the basis for development planning.</div>
-            <div class="exp-tags"><span class="exp-tag">Figma</span><span class="exp-tag">UX/UI</span><span class="exp-tag">B2B Design</span><span class="exp-tag">Prototyping</span></div>
-          </div>
-        </div>
-        <div class="reveal exp-item" style="transition-delay:160ms">
-          <div>
-            <div class="exp-date">2019 – 2022</div>
-            <div class="exp-company">NZ Post</div>
-            <div class="exp-role">Parcel Sorter + Design</div>
-          </div>
-          <div>
-            <div class="exp-desc">Three years of operational work with informal design contributions on the side. When you're a designer you just can't help it.</div>
-            <div class="exp-tags"><span class="exp-tag">Design</span><span class="exp-tag">Operations</span></div>
-          </div>
-        </div>
-        <div class="reveal exp-item" style="transition-delay:240ms">
-          <div>
-            <div class="exp-date">2021 – 2024</div>
-            <div class="exp-company">University of Waikato</div>
-            <div class="exp-role">BDes — Interface Design</div>
-          </div>
-          <div>
-            <div class="exp-desc">Graduated with a major in Interface Design. Studied UX research, visual systems, typography, interaction design, and the theory behind why good design works.</div>
-            <div class="exp-tags"><span class="exp-tag">UX Research</span><span class="exp-tag">Interface Design</span><span class="exp-tag">Typography</span></div>
-          </div>
-        </div>
+        <div class="reveal exp-item"><div><div class="exp-date">2025 – Present</div><div class="exp-company">Hunza Outdoor Lighting</div><div class="exp-role">Marketing Coordinator</div></div><div><div class="exp-desc">Led the full website redesign and ongoing maintenance (WordPress, HTML, CSS, JS, PHP). Fixed a database pricing bug via SQL. Redesigned spec sheets and catalogues in InDesign, created all social graphics hand-drawn in Illustrator.</div><div class="exp-tags"><span class="exp-tag">WordPress</span><span class="exp-tag">HTML/CSS/JS</span><span class="exp-tag">SQL</span><span class="exp-tag">InDesign</span><span class="exp-tag">Illustrator</span></div></div></div>
+        <div class="reveal exp-item" style="transition-delay: 80ms"><div><div class="exp-date">2023 – 2024</div><div class="exp-company">LuminateOne</div><div class="exp-role">UI/UX Design Intern · 6 months</div></div><div><div class="exp-desc">Redesigned Automote, a dealer management platform used daily by car dealerships. Delivered a fully interactive Figma prototype covering core workflows, accepted as the basis for development planning.</div><div class="exp-tags"><span class="exp-tag">Figma</span><span class="exp-tag">UX/UI</span><span class="exp-tag">B2B Design</span><span class="exp-tag">Prototyping</span></div></div></div>
+        <div class="reveal exp-item" style="transition-delay: 160ms"><div><div class="exp-date">2019 – 2022</div><div class="exp-company">NZ Post</div><div class="exp-role">Parcel Sorter + Design</div></div><div><div class="exp-desc">Three years of operational work with informal design contributions on the side. When you're a designer you just can't help it.</div><div class="exp-tags"><span class="exp-tag">Design</span><span class="exp-tag">Operations</span></div></div></div>
+        <div class="reveal exp-item" style="transition-delay: 240ms"><div><div class="exp-date">2021 – 2024</div><div class="exp-company">University of Waikato</div><div class="exp-role">BDes — Interface Design</div></div><div><div class="exp-desc">Graduated with a major in Interface Design. Studied UX research, visual systems, typography, interaction design, and the theory behind why good design works.</div><div class="exp-tags"><span class="exp-tag">UX Research</span><span class="exp-tag">Interface Design</span><span class="exp-tag">Typography</span></div></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ======= CONTACT ======= -->
   <section id="contact">
     <div class="contact-left reveal">
       <span class="section-label">Get in touch</span>
       <h2 class="contact-heading">Let's make<br>something <em>good.</em></h2>
     </div>
-    <div class="contact-right reveal" style="transition-delay:150ms">
-      <p class="contact-sub">Open to new roles, freelance work, and anything interesting. Based in Auckland, open to remote and global. If you've made it this far, we're probably a good match.</p>
+    <div class="contact-right reveal" style="transition-delay: 150ms">
+      <p class="contact-sub">Open to new roles, freelance work, and anything interesting. If you've made it this far, we're probably a good match.</p>
       <div class="contact-links">
-        <a href="mailto:paige.simm@icloud.com" class="contact-link">
-          paige.simm@icloud.com
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 14L14 2M14 2H6M14 2v8"/></svg>
-        </a>
-        <a href="#" class="contact-link">
-          Download CV
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v9M3 11l5 3 5-3M2 14h12"/></svg>
-        </a>
+        <a href="mailto:paige.simm@icloud.com" class="contact-link">paige.simm@icloud.com<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 14L14 2M14 2H6M14 2v8"/></svg></a>
+       
+        <a href="#" class="contact-link">Download CV<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v9M3 11l5 3 5-3M2 14h12"/></svg></a>
       </div>
     </div>
   </section>
@@ -698,28 +244,6 @@
     <a href="#hero">Back to top ↑</a>
   </footer>
 
-  <script>
-  // Scroll bar
-  const bar = document.getElementById('scroll-bar');
-  window.addEventListener('scroll', () => {
-    const s = document.documentElement;
-    if (bar) bar.style.width = (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
-  });
-  // Nav scrolled
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav && nav.classList.toggle('scrolled', window.scrollY > 20));
-  // Mobile nav
-  const ham = document.getElementById('hamburger');
-  const drawer = document.getElementById('mobileDrawer');
-  if (ham && drawer) {
-    ham.addEventListener('click', () => drawer.classList.toggle('open'));
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.remove('open')));
-  }
-  // Reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
