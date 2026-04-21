@@ -219,6 +219,48 @@
   .flow-diagram-inner { grid-template-columns: 1fr; min-width: unset; }
   .flow-col::after { display: none; }
 }
+
+/* ---- IMAGE SIZING FIXES ---- */
+.ba-panel img {
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.ba-img-stub {
+  min-height: 240px;
+  width: 100%;
+  background: rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: rgba(0,0,0,0.25);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.screen-full img {
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.phone-item img {
+  width: 150px;
+  height: 324px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 28px 64px rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.12);
+  display: block;
+}
+.phone-stub {
+  width: 150px;
+  height: 324px;
+}
+
 </style>
 </head>
 <body>
@@ -515,6 +557,35 @@
 </section>
 
 <!-- 06 BEFORE + AFTER: PRODUCT PAGE -->
+<!-- HOMEPAGE B/A — inserted before product page B/A -->
+<section class="cs-section" id="s5b">
+  <div class="inner" style="position:relative">
+    <span class="sec-num">05b</span>
+    <span class="section-label">Before + After</span>
+    <h2 class="section-heading">Homepage — two brands to one unified platform.</h2>
+    <p style="font-size:0.95rem;color:var(--muted);max-width:58ch;line-height:1.75;margin-bottom:1.5rem">Both original sites are shown below. The after shows the unified redesign that replaced them both.</p>
+    <div class="ba-grid">
+      <div>
+        <div class="ba-panel" style="margin-bottom:1rem">
+          <div class="ba-header"><span>Original Hunza</span><span class="ba-tag before">Before</span></div>
+          <img src="hunza-before.png" alt="Original Hunza site" style="width:100%;height:auto;min-height:200px;object-fit:cover;display:block">
+          <p class="ba-caption">Generic layout, no audience distinction. Visual design actively damaging trust for a precision-engineered premium brand.</p>
+        </div>
+        <div class="ba-panel">
+          <div class="ba-header"><span>Original LuxR</span><span class="ba-tag before">Before</span></div>
+          <img src="luxr-before.png" alt="Original LuxR site" style="width:100%;height:auto;min-height:200px;object-fit:cover;display:block">
+          <p class="ba-caption">LuxR as a separate, minimal site — disconnected from Hunza, no brand presence of its own.</p>
+        </div>
+      </div>
+      <div class="ba-panel">
+        <div class="ba-header"><span>Redesigned — unified platform</span><span class="ba-tag after">After</span></div>
+        <img src="hunza-after.png" alt="Redesigned Hunza + LuxR" style="width:100%;height:auto;min-height:440px;object-fit:cover;display:block">
+        <p class="ba-caption">One unified platform. Dark, refined visual language. Audience-based navigation. Both brands coexist with distinct identities under the same roof.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="cs-section" id="s6">
   <div class="inner" style="position:relative">
     <span class="sec-num">06</span>
@@ -524,12 +595,12 @@
     <div class="ba-grid">
       <div class="ba-panel">
         <div class="ba-header"><span>Original Product Page</span><span class="ba-tag before">Before</span></div>
-        <img src="productpagebefore.png" alt="Original Hunza product page" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original product page — cluttered layout, poor hierarchy</div>'">
+        <img src="productpagebefore.png" alt="Original Hunza product page" onerror="this.style.display='none'">
         <p class="ba-caption"><strong>Problems:</strong> Specifications buried in tabs, no visual breathing room, technical drawings hard to locate, enquiry CTA lost in the noise.</p>
       </div>
       <div class="ba-panel">
         <div class="ba-header"><span>Redesigned Product Page</span><span class="ba-tag after">After</span></div>
-        <img src="productpageafter.jpg" alt="Redesigned Hunza product page" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Redesigned product page — clean, technical, trustworthy</div>'">
+        <img src="productpageafter.jpg" alt="Redesigned Hunza product page" onerror="this.style.display='none'">
         <p class="ba-caption"><strong>Solutions:</strong> Specs surfaced prominently, technical drawings accessible immediately, clear visual hierarchy, enquiry CTA distinct and always visible.</p>
       </div>
     </div>
