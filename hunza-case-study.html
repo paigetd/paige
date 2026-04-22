@@ -309,14 +309,63 @@ body::before {
 .ba-tag.before { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.4); }
 .ba-tag.after  { background: rgba(232,98,42,0.12); color: var(--accent); }
 .ba-panel img {
-  width: 100%; height: auto; min-height: 220px; object-fit: cover; display: block;
+  width: 100%;
+  height: 340px;           /* fixed height so desktop screenshots show real content */
+  object-fit: cover;
+  object-position: top;   /* always show top of screenshot, not middle crop */
+  display: block;
+  transition: transform 0.4s ease;
 }
+.ba-panel:hover img { transform: scale(1.02); }
 .ba-img-stub {
-  width: 100%; min-height: 220px; background: rgba(0,0,0,0.03);
+  width: 100%; height: 340px;
+  background: rgba(0,0,0,0.03);
   display: flex; align-items: center; justify-content: center;
   font-size: 0.68rem; color: rgba(0,0,0,0.22); font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
+  text-align: center; padding: 1.5rem; line-height: 1.6;
 }
+
+/* Homepage B/A: stacked befores + tall after that fills both */
+.ba-grid-homepage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  align-items: stretch;   /* right column fills full height */
+}
+.ba-grid-homepage .ba-stack {
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+/* The "after" panel in homepage B/A fills the full combined height */
+.ba-panel-tall { height: 100%; display: flex; flex-direction: column; }
+.ba-panel-tall img {
+  flex: 1;                /* fill remaining space after header + caption */
+  width: 100%; height: 0; /* flex overrides height */ min-height: 440px;
+  object-fit: cover; object-position: top; display: block;
+}
+.ba-panel-tall .ba-caption { flex-shrink: 0; }
+
+/* Desktop screenshot panels: taller for full-page shots */
+.ba-panel.desktop img { height: 400px; }
+
+/* Product page: 2-col, both same height, show top of screen */
+.ba-grid-product {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.75rem; margin-top: 1.5rem;
+}
+.ba-grid-product .ba-panel img { height: 360px; }
+
+/* Downloads: landscape, shorter but wider */
+.ba-grid-downloads {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.75rem; margin-top: 1.5rem;
+}
+.ba-grid-downloads .ba-panel img { height: 300px; }
+
+/* Distributor: single full-width after image */
+.ba-distributor-wrap { margin-top: 1.5rem; }
+.ba-distributor-after .ba-panel img { height: 380px; }
 .ba-caption { padding: 0.8rem 1.1rem; font-size: 0.75rem; color: var(--muted); line-height: 1.55; }
 
 /* ============================================================
@@ -558,6 +607,9 @@ footer a:hover { color: var(--accent); }
   .two-col { grid-template-columns: 1fr; gap: 2rem; }
   .sql-layout { grid-template-columns: 1fr; gap: 2rem; }
   .ba-grid { grid-template-columns: 1fr; }
+  .ba-grid-homepage { grid-template-columns: 1fr; }
+  .ba-grid-product { grid-template-columns: 1fr; }
+  .ba-grid-downloads { grid-template-columns: 1fr; }
   .iterations { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
@@ -763,23 +815,25 @@ footer a:hover { color: var(--accent); }
     <span class="sec-num">05</span>
     <span class="section-label">Before + After</span>
     <h2 class="section-heading">Two brands — into one unified platform.</h2>
-    <div class="ba-grid">
-      <div>
-        <div class="ba-panel" style="margin-bottom:0.75rem">
+    <div class="ba-grid-homepage">
+      <!-- Left: two stacked befores -->
+      <div class="ba-stack">
+        <div class="ba-panel">
           <div class="ba-header"><span>Original Hunza</span><span class="ba-tag before">Before</span></div>
-          <img src="hunza-before.png" alt="Original Hunza site" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original Hunza</div>'">
+          <img src="hunza-before.png" alt="Original Hunza site" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original Hunza site</div>'">
           <p class="ba-caption">Generic layout, no audience distinction. Visual design actively damaging trust for a precision-engineered premium brand.</p>
         </div>
         <div class="ba-panel">
           <div class="ba-header"><span>Original LuxR</span><span class="ba-tag before">Before</span></div>
-          <img src="luxr-before.png" alt="Original LuxR site" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original LuxR</div>'">
-          <p class="ba-caption">LuxR as a minimal standalone site — disconnected from Hunza, no identity of its own.</p>
+          <img src="luxr-before.png" alt="Original LuxR site" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original LuxR site</div>'">
+          <p class="ba-caption">LuxR as a minimal standalone site — disconnected from Hunza, no brand identity of its own.</p>
         </div>
       </div>
-      <div class="ba-panel">
+      <!-- Right: single tall after that fills both -->
+      <div class="ba-panel ba-panel-tall">
         <div class="ba-header"><span>Redesigned — unified platform</span><span class="ba-tag after">After</span></div>
-        <img src="hunza-after.png" alt="Redesigned Hunza + LuxR" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Redesigned</div>'" style="min-height:440px">
-        <p class="ba-caption">One unified platform. Refined visual language. Audience-based navigation. Both brands coexist with distinct identities.</p>
+        <img src="hunza-after.png" alt="Redesigned Hunza + LuxR" onerror="this.outerHTML='<div class=\'ba-img-stub\' style=\'flex:1;min-height:440px\'>Redesigned platform</div>'">
+        <p class="ba-caption">One unified platform. Refined visual language. Audience-based navigation. Both brands coexist with their own identities.</p>
       </div>
     </div>
   </div>
@@ -791,15 +845,15 @@ footer a:hover { color: var(--accent); }
     <span class="sec-num">06</span>
     <span class="section-label">Before + After</span>
     <h2 class="section-heading">Product page — specs surfaced, trust rebuilt.</h2>
-    <div class="ba-grid">
+    <div class="ba-grid-product">
       <div class="ba-panel">
         <div class="ba-header"><span>Original product page</span><span class="ba-tag before">Before</span></div>
-        <img src="productpagebefore.png" alt="Before" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Before</div>'">
+        <img src="productpagebefore.png" alt="Before" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original product page</div>'">
         <p class="ba-caption">Specs buried in tabs. No clear hierarchy. Enquiry CTA lost below the fold.</p>
       </div>
       <div class="ba-panel">
         <div class="ba-header"><span>Redesigned product page</span><span class="ba-tag after">After</span></div>
-        <img src="productpageafter.jpg" alt="After" onerror="this.outerHTML='<div class=\'ba-img-stub\'>After</div>'">
+        <img src="productpageafter.jpg" alt="After" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Redesigned product page</div>'">
         <p class="ba-caption">Specs in right column, visible on load. Downloads one click away. Enquiry CTA fixed and always visible.</p>
       </div>
     </div>
@@ -813,15 +867,15 @@ footer a:hover { color: var(--accent); }
     <span class="sec-num">07</span>
     <span class="section-label">Before + After</span>
     <h2 class="section-heading">Downloads — from unscannable to instant.</h2>
-    <div class="ba-grid">
+    <div class="ba-grid-downloads">
       <div class="ba-panel">
         <div class="ba-header"><span>Original downloads</span><span class="ba-tag before">Before</span></div>
-        <img src="downloadsbefore.png" alt="Before" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Before</div>'">
+        <img src="downloadsbefore.png" alt="Before" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Original downloads page</div>'">
         <p class="ba-caption">Wall of links, no categorisation, inconsistent naming. ~3 minutes to find a file. Users emailed sales instead.</p>
       </div>
       <div class="ba-panel">
         <div class="ba-header"><span>Redesigned resources</span><span class="ba-tag after">After</span></div>
-        <img src="downloadsafter.png" alt="After" onerror="this.outerHTML='<div class=\'ba-img-stub\'>After</div>'">
+        <img src="downloadsafter.png" alt="After" onerror="this.outerHTML='<div class=\'ba-img-stub\'>Redesigned resources hub</div>'">
         <p class="ba-caption">Functional filters, type grouping, consistent naming. Under 30 seconds to any file. Support emails dropped 40%.</p>
       </div>
     </div>
@@ -834,15 +888,19 @@ footer a:hover { color: var(--accent); }
     <span class="sec-num">08</span>
     <span class="section-label">Before + After</span>
     <h2 class="section-heading">Distributor portal — trusted again.</h2>
-    <div class="ba-grid">
+    <!-- Context card explaining what existed before, then full-width after -->
+    <div class="ba-grid-downloads" style="margin-top:1.5rem">
       <div class="ba-panel">
-        <div class="ba-header"><span>Original distributors page</span><span class="ba-tag before">Before</span></div>
-        <div class="ba-img-stub">Single paragraph + generic contact form.<br>No pricing. No files. No portal.</div>
-        <p class="ba-caption">Effectively non-functional for trade users. Portal usage had stopped entirely.</p>
+        <div class="ba-header"><span>Original distributor page</span><span class="ba-tag before">Before</span></div>
+        <div class="ba-img-stub" style="height:300px;flex-direction:column;gap:0.8rem">
+          <span style="font-size:1.4rem">📄</span>
+          <span style="font-size:0.78rem;text-transform:none;letter-spacing:0;font-weight:400;color:rgba(0,0,0,0.4);max-width:22ch;line-height:1.6">One paragraph of text and a generic contact form. No pricing. No files. No portal. Indistinguishable from the standard contact page.</span>
+        </div>
+        <p class="ba-caption">Portal usage had stopped entirely. Distributors were managing everything via email.</p>
       </div>
       <div class="ba-panel">
         <div class="ba-header"><span>Redesigned distributor hub</span><span class="ba-tag after">After</span></div>
-        <img src="distributorsafter.png" alt="After" onerror="this.outerHTML='<div class=\'ba-img-stub\'>After</div>'">
+        <img src="distributorsafter.png" alt="Redesigned distributor hub" onerror="this.outerHTML='<div class=\'ba-img-stub\' style=\'height:300px\'>Redesigned distributor hub</div>'" style="height:300px">
         <p class="ba-caption">Stockist locator with region filtering, trade login portal, technical resources surfaced. Portal usage resumed post-launch.</p>
       </div>
     </div>
