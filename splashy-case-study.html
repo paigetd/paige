@@ -1,609 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Splashy — Case Study · Paige Simm</title>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="case-study.css">
-<style>
-/* ============================================================
-   UNIFIED GLASS SYSTEM — SPLASHY (ocean variant)
-   ============================================================ */
-:root {
-  /* Glass tokens */
-  --g-bg:          rgba(255,255,255,0.52);
-  --g-bg-strong:   rgba(255,255,255,0.72);
-  --g-bg-muted:    rgba(255,255,255,0.28);
-  --g-border:      rgba(255,255,255,0.72);
-  --g-border-sub:  rgba(255,255,255,0.38);
-  --g-blur:        blur(18px) saturate(160%);
-  --g-shadow:      0 4px 24px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8);
-  --g-shadow-lift: 0 16px 48px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Splashy — Case Study · Paige Simm</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@300,400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="case-study.css">
+  <style>
+    :root {
+      --ocean-primary: #168e9e;
+      --ocean-accent:  #e8622a;
+    }
 
-  /* Splashy ocean palette — teal + coral */
-  --ocean-primary: #168e9e;
-  --ocean-accent:  #e8622a;
-  --ocean-muted:   #5b8c8f;
-  --ocean-light:   rgba(168,222,234,0.15);
-}
+    body { background: #f0f5f4; }
+    body::after {
+      background:
+        radial-gradient(ellipse 80vw 60vh at 15% 20%, rgba(22,142,158,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60vw 50vh at 85% 75%, rgba(232,98,42,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50vw 40vh at 50% 50%, rgba(168,222,234,0.12) 0%, transparent 65%),
+        #f0f5f4;
+    }
 
-/* ============================================================
-   ANIMATED BACKGROUND — ocean variant
-   ============================================================ */
-body {
-  background: #f0f5f4;
-  min-height: 100vh;
-}
-body::after {
-  content: '';
-  position: fixed; inset: 0; z-index: -2; pointer-events: none;
-  background:
-    radial-gradient(ellipse 80vw 60vh at 15% 20%, rgba(22,142,158,0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 60vw 50vh at 85% 75%, rgba(232,98,42,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50vw 40vh at 50% 50%, rgba(168,222,234,0.12) 0%, transparent 65%),
-    #f0f5f4;
-}
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 128px;
-}
+    /* Section labels — ocean accent */
+    .section-label { color: var(--ocean-accent); }
+    .section-label::before { background: var(--ocean-accent); }
 
-/* ============================================================
-   BASE CARD SYSTEM
-   ============================================================ */
-.gc {
-  background: var(--g-bg);
-  backdrop-filter: var(--g-blur);
-  -webkit-backdrop-filter: var(--g-blur);
-  border: 1px solid var(--g-border);
-  border-radius: 22px;
-  box-shadow: var(--g-shadow);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.gc::before {
-  content: '';
-  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
-  pointer-events: none;
-}
-.gc:hover { transform: translateY(-3px); box-shadow: var(--g-shadow-lift); }
+    /* Stat pills — ocean primary */
+    .stat-pill-val { color: var(--ocean-primary); }
 
-.gc-muted {
-  background: var(--g-bg-muted);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--g-border-sub);
-  border-radius: 16px;
-}
+    /* Editorial peak — ocean */
+    .editorial-peak-bg {
+      background: linear-gradient(135deg, rgba(22,142,158,0.08) 0%, rgba(168,222,234,0.04) 100%);
+      border-top: 1px solid rgba(22,142,158,0.12);
+      border-bottom: 1px solid rgba(22,142,158,0.12);
+    }
+    .editorial-peak-number { color: var(--ocean-primary); }
 
-/* ============================================================
-   NAV
-   ============================================================ */
-.nav { background: rgba(240,245,244,0.78); backdrop-filter: blur(24px) saturate(180%); border-bottom: 1px solid rgba(255,255,255,0.5); }
-.nav.scrolled { background: rgba(240,245,244,0.92); }
+    /* Problem cards */
+    .prob { border-top: 3px solid var(--ocean-primary); }
+    .prob-n { color: rgba(22,142,158,0.12); }
 
-/* ============================================================
-   HERO — Splashy variant
-   ============================================================ */
-.cs-hero.splashy { color: var(--dark); }
-.cs-hero.splashy .cs-title-line:first-child { color: var(--ocean-primary); }
-.cs-hero.splashy .cs-eyebrow { color: var(--ocean-accent); }
-.cs-hero.splashy .cs-year { color: rgba(0,0,0,0.4); }
-.cs-hero.splashy .cs-meta-label { color: rgba(0,0,0,0.4); }
-.cs-hero.splashy .cs-meta-value { color: var(--dark); font-weight: 500; }
-.cs-hero.splashy .cs-hero-meta { border-top-color: rgba(0,0,0,0.08); }
+    /* Persona goal border */
+    .persona-goal { border-left-color: var(--ocean-primary); background: rgba(22,142,158,0.04); }
+    .persona-card:nth-child(1) .persona-avatar { background: rgba(22,142,158,0.12); border: 1px solid rgba(22,142,158,0.2); }
+    .persona-card:nth-child(2) .persona-avatar { background: rgba(232,98,42,0.10); border: 1px solid rgba(232,98,42,0.2); }
+    .persona-card:nth-child(3) .persona-avatar { background: rgba(92,186,120,0.12); border: 1px solid rgba(92,186,120,0.2); }
 
-/* ============================================================
-   SECTIONS
-   ============================================================ */
-.cs-section { background: transparent; }
-.inner { position: relative; }
+    /* Flow diagram ocean colours */
+    .fd-box.root, .fd-box.end { background: var(--ocean-primary); box-shadow: 0 4px 16px rgba(22,142,158,0.3); }
+    .fd-box.pivot { background: rgba(168,222,234,0.15); border: 1.5px solid rgba(22,142,158,0.4); }
 
-.section-label {
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--ocean-accent);
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  margin-bottom: 0.75rem;
-}
-.section-label::before {
-  content: '';
-  display: inline-block; width: 5px; height: 5px;
-  border-radius: 50%; background: var(--ocean-accent);
-}
+    /* Decision why */
+    .decision-why { color: var(--ocean-primary); border-top-color: rgba(22,142,158,0.12); }
 
-/* ============================================================
-   TOP SUMMARY
-   ============================================================ */
-.top-summary {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px;
-  background: rgba(0,0,0,0.06);
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 2.5rem 0 0;
-  border: 1px solid rgba(0,0,0,0.06);
-}
-.ts-cell {
-  background: var(--g-bg-strong);
-  backdrop-filter: var(--g-blur);
-  padding: 1.6rem 1.8rem;
-}
-.ts-label {
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--ocean-accent);
-  margin-bottom: 0.55rem;
-}
-.ts-text { font-size: 0.92rem; line-height: 1.55; color: var(--dark); font-weight: 300; }
-.ts-text strong { font-weight: 700; }
+    /* Constraints */
+    .constraints li::before { color: var(--ocean-primary); }
+    .constraints-title { color: var(--ocean-primary); }
 
-/* ============================================================
-   STAT ROW
-   ============================================================ */
-.stat-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 2rem 0; }
-.stat-pill {
-  background: var(--g-bg-strong); backdrop-filter: var(--g-blur);
-  border: 1px solid var(--g-border);
-  border-radius: 100px; padding: 0.9rem 1.6rem;
-  display: flex; align-items: baseline; gap: 0.6rem;
-  box-shadow: var(--g-shadow);
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-.stat-pill:hover { transform: translateY(-3px); box-shadow: var(--g-shadow-lift); }
-.stat-pill-val {
-  font-family: var(--serif); font-style: italic;
-  font-size: 2rem; color: var(--ocean-primary); line-height: 1;
-}
-.stat-pill-label { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1.3; }
+    /* Outcome border */
+    .outcome { border-left-color: var(--ocean-primary); }
 
-/* ============================================================
-   EDITORIAL PEAK — oversized stat (ocean variant)
-   ============================================================ */
-.editorial-peak {
-  padding: 4.5rem 3rem;
-  text-align: center; position: relative;
-  margin: 0 -3rem;
-}
-.editorial-peak-bg {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(22,142,158,0.08) 0%, rgba(168,222,234,0.04) 100%);
-  border-top: 1px solid rgba(22,142,158,0.12);
-  border-bottom: 1px solid rgba(22,142,158,0.12);
-}
-.editorial-peak-number {
-  font-family: var(--serif); font-style: italic; font-weight: 700;
-  font-size: clamp(5rem, 12vw, 9rem);
-  line-height: 1; color: var(--ocean-primary);
-  display: block; margin-bottom: 0.2rem;
-}
-.editorial-peak-label {
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem); color: var(--muted);
-  letter-spacing: 0.06em; font-weight: 300;
-}
-.editorial-peak-sub {
-  font-size: 0.75rem; color: rgba(0,0,0,0.3); margin-top: 0.3rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-}
+    /* Blockquote */
+    .cs-blockquote-peak {
+      background: rgba(22,142,158,0.04);
+      border-top: 1px solid rgba(22,142,158,0.1);
+      border-bottom: 1px solid rgba(22,142,158,0.1);
+    }
+    .cs-blockquote-peak blockquote em { color: var(--ocean-primary); }
 
-/* ============================================================
-   PERSONAS
-   ============================================================ */
-.persona-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-top: 1.5rem; }
-.persona-card { padding: 1.4rem; }
-.persona-avatar {
-  width: 38px; height: 38px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; margin-bottom: 0.8rem;
-}
-.persona-card:nth-child(1) .persona-avatar { background: rgba(22,142,158,0.12); border: 1px solid rgba(22,142,158,0.2); }
-.persona-card:nth-child(2) .persona-avatar { background: rgba(232,98,42,0.1); border: 1px solid rgba(232,98,42,0.2); }
-.persona-card:nth-child(3) .persona-avatar { background: rgba(92,186,120,0.12); border: 1px solid rgba(92,186,120,0.2); }
-.persona-name { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
-.persona-goal {
-  font-size: 0.78rem; line-height: 1.55; color: var(--dark); font-weight: 300;
-  font-family: var(--serif); font-style: italic;
-  padding: 0.4rem 0.7rem; margin-bottom: 0.6rem;
-  border-left: 2px solid var(--ocean-primary);
-  background: rgba(22,142,158,0.04);
-  border-radius: 0 8px 8px 0;
-}
-.persona-observed { font-size: 0.74rem; line-height: 1.6; color: rgba(0,0,0,0.45); font-weight: 300; }
+    /* End strip */
+    .end-link:hover { color: var(--ocean-primary); }
+    .end-cta:hover  { background: var(--ocean-primary); }
 
-/* ============================================================
-   FLOW DIAGRAM
-   ============================================================ */
-.flow-diagram {
-  background: var(--g-bg); backdrop-filter: var(--g-blur);
-  border: 1px solid var(--g-border); border-radius: 22px;
-  box-shadow: var(--g-shadow);
-  padding: 2.5rem 2rem; margin-top: 1.5rem; overflow-x: auto;
-}
-.flow-diagram::before {
-  content: '';
-  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
-}
-.fd-inner {
-  display: grid; grid-template-columns: auto 32px auto 32px auto 32px auto 32px auto;
-  gap: 0; align-items: center; min-width: 620px;
-}
-.fd-node {
-  text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-}
-.fd-box {
-  padding: 0.65rem 1rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;
-  line-height: 1.3; text-align: center; white-space: nowrap;
-}
-.fd-box.root {
-  background: var(--ocean-primary); color: white; border: none;
-  box-shadow: 0 4px 16px rgba(22,142,158,0.35);
-  font-size: 0.82rem; padding: 0.75rem 1.2rem;
-}
-.fd-box.pivot {
-  background: rgba(168,222,234,0.15); border: 1.5px solid rgba(22,142,158,0.4);
-  color: var(--dark);
-}
-.fd-box.end {
-  background: var(--ocean-primary); color: white; border: none;
-  box-shadow: 0 4px 16px rgba(22,142,158,0.3);
-}
-.fd-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.28); }
-.fd-branch { display: flex; flex-direction: column; gap: 0.45rem; }
-.fd-branch-box {
-  padding: 0.45rem 0.75rem; border-radius: 9px;
-  font-size: 0.68rem; font-weight: 600; line-height: 1.3; text-align: center;
-}
-.fd-branch-box.arch { background: rgba(22,142,158,0.1); border: 1px solid rgba(22,142,158,0.25); color: rgba(10,80,90,0.85); }
-.fd-branch-box.home { background: rgba(232,98,42,0.08); border: 1px solid rgba(232,98,42,0.22); color: rgba(140,50,10,0.8); }
-.fd-branch-box.trade { background: rgba(92,186,120,0.1); border: 1px solid rgba(92,186,120,0.25); color: rgba(30,100,50,0.85); }
-.fd-content-box {
-  padding: 0.35rem 0.6rem; border-radius: 7px;
-  font-size: 0.62rem; font-weight: 500; color: rgba(0,0,0,0.55); background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(0,0,0,0.06); text-align: center; line-height: 1.3;
-}
-.fd-arrow {
-  display: flex; align-items: center; justify-content: center; height: 100%;
-}
-.fd-arrow svg { opacity: 0.3; }
-.fd-note { font-size: 0.75rem; color: var(--muted); font-style: italic; margin-top: 1.5rem; text-align: center; }
+    /* Nav tint */
+    .nav { background: rgba(240,245,244,0.78); }
+    .nav.scrolled { background: rgba(240,245,244,0.92); }
 
-/* ============================================================
-   IMAGE PANELS — consistent with Hunza styling
-   ============================================================ */
-.img-panel {
-  background: var(--g-bg); backdrop-filter: var(--g-blur);
-  border: 1px solid var(--g-border); border-radius: 18px;
-  overflow: hidden; box-shadow: var(--g-shadow);
-  transition: transform 0.3s;
-}
-.img-panel:hover { transform: translateY(-3px); }
-.img-panel img {
-  width: 100%; height: 340px;          /* fixed height for consistency */
-  object-fit: cover;
-  object-position: top;
-  display: block;
-}
-.img-caption {
-  padding: 0.8rem 1.1rem; font-size: 0.75rem; color: var(--muted);
-  line-height: 1.55; border-top: 1px solid rgba(0,0,0,0.05);
-}
-.img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
+    /* Top summary label */
+    .ts-label { color: var(--ocean-accent); }
 
-/* For the concept development sketches */
-.sketch-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.sketch-panel img { height: 280px; }  /* slightly shorter for sketches */
+    /* Ocean system — dark section */
+    .ocean-section-wrap {
+      margin: 0 -3rem; padding: 4rem 3rem;
+      background: linear-gradient(135deg, #0a2025 0%, #061012 100%);
+      position: relative; overflow: hidden;
+    }
+    .ocean-section-wrap::before {
+      content: ''; position: absolute; top: -30%; right: -15%;
+      width: 50vw; height: 50vw; border-radius: 50%;
+      background: radial-gradient(circle, rgba(22,142,158,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .ocean-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+    .ocean-section-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ocean-accent); margin-bottom: 0.75rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .ocean-section-label::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--ocean-accent); }
+    .ocean-heading {
+      font-family: var(--serif); font-style: italic; font-weight: 700;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: #f0f5f4; line-height: 1.1; margin-bottom: 1rem;
+    }
+    .ocean-system-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin: 2rem 0 1rem; }
+    .ocean-stage-card {
+      background: rgba(255,255,255,0.04); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+      padding: 1.8rem 1.5rem; text-align: center;
+    }
+    .ocean-stage-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .ocean-stage-name { font-weight: 700; color: #f0f5f4; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .ocean-stage-trigger {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--ocean-primary); padding: 0.3rem 0.8rem;
+      background: rgba(22,142,158,0.15); border-radius: 100px;
+      display: inline-block; margin-bottom: 0.75rem;
+    }
+    .ocean-stage-principle { font-size: 0.75rem; color: rgba(240,245,244,0.5); font-style: italic; }
 
-/* ============================================================
-   BEFORE / AFTER — image panels (retained for compatibility)
-   ============================================================ */
-.ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.ba-panel {
-  background: var(--g-bg); backdrop-filter: var(--g-blur);
-  border: 1px solid var(--g-border); border-radius: 18px;
-  overflow: hidden; box-shadow: var(--g-shadow);
-  transition: transform 0.3s;
-}
-.ba-panel:hover { transform: translateY(-3px); }
-.ba-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0.8rem 1.1rem; border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.ba-header span:first-child { font-size: 0.72rem; font-weight: 500; color: rgba(0,0,0,0.45); }
-.ba-tag {
-  font-size: 0.56rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 0.22rem 0.7rem; border-radius: 100px;
-}
-.ba-tag.before { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.4); }
-.ba-tag.after  { background: rgba(22,142,158,0.12); color: var(--ocean-primary); }
-.ba-panel img {
-  width: 100%; height: 340px;
-  object-fit: cover; object-position: top; display: block;
-}
-.ba-caption { padding: 0.8rem 1.1rem; font-size: 0.75rem; color: var(--muted); line-height: 1.55; }
+    /* Tradeoff compare inside dark section */
+    .decision-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 1.5rem; margin: 1.5rem 0;
+    }
+    .decision-option { padding: 1rem; border-radius: 12px; }
+    .decision-option.kept    { background: rgba(92,186,120,0.08); border: 1px solid rgba(92,186,120,0.2); }
+    .decision-option.dropped { background: rgba(200,60,60,0.06); border: 1px solid rgba(200,60,60,0.15); }
+    .decision-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block; }
+    .kept .decision-label    { color: #5cba78; }
+    .dropped .decision-label { color: rgba(220,80,80,0.8); }
+    .decision-option p { font-size: 0.9rem; color: rgba(240,245,244,0.65); line-height: 1.6; }
 
-/* ============================================================
-   PROBLEM GRID
-   ============================================================ */
-.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.prob { padding: 1.6rem; border-top: 3px solid var(--ocean-primary); }
-.prob:hover { transform: translateY(-3px); box-shadow: var(--g-shadow-lift); }
-.prob-n { font-family: var(--serif); font-style: italic; font-size: 2.8rem; color: rgba(22,142,158,0.12); line-height: 1; margin-bottom: 0.6rem; }
-.prob-t { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
-.prob-b { font-size: 0.85rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+    /* Insights */
+    .insight { border-left: 2px solid var(--ocean-primary); }
 
-/* ============================================================
-   OCEAN SYSTEM SECTION — dark glass variant (like SQL section)
-   ============================================================ */
-.ocean-section-wrap {
-  margin: 0 -3rem;
-  padding: 4rem 3rem;
-  background: linear-gradient(135deg, #0a2025 0%, #061012 100%);
-  position: relative; overflow: hidden;
-}
-.ocean-section-wrap::before {
-  content: '';
-  position: absolute; top: -30%; right: -15%;
-  width: 50vw; height: 50vw; border-radius: 50%;
-  background: radial-gradient(circle, rgba(22,142,158,0.15) 0%, transparent 65%);
-  pointer-events: none;
-}
-.ocean-section-wrap::after {
-  content: '';
-  position: absolute; bottom: -20%; left: -10%;
-  width: 35vw; height: 35vw; border-radius: 50%;
-  background: radial-gradient(circle, rgba(168,222,234,0.06) 0%, transparent 65%);
-  pointer-events: none;
-}
-.ocean-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
-.ocean-section-label {
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ocean-accent); margin-bottom: 0.75rem;
-  display: inline-flex; align-items: center; gap: 0.4rem;
-}
-.ocean-section-label::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--ocean-accent); }
-.ocean-heading {
-  font-family: var(--serif); font-style: italic; font-weight: 700;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  color: #f0f5f4; line-height: 1.1; margin-bottom: 1rem;
-}
-.ocean-system-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.5rem; margin: 2rem 0 1rem;
-}
-.ocean-stage-card {
-  background: rgba(255,255,255,0.04); backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
-  padding: 1.8rem 1.5rem; text-align: center;
-}
-.ocean-stage-icon { font-size: 3rem; margin-bottom: 1rem; }
-.ocean-stage-name { font-weight: 700; color: #f0f5f4; margin-bottom: 0.5rem; font-size: 1.1rem; }
-.ocean-stage-trigger {
-  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--ocean-primary); padding: 0.3rem 0.8rem;
-  background: rgba(22,142,158,0.15); border-radius: 100px; display: inline-block;
-  margin-bottom: 0.75rem;
-}
-.ocean-stage-principle {
-  font-size: 0.75rem; color: rgba(240,245,244,0.5); font-style: italic;
-}
-
-/* ============================================================
-   PHONE SHOWCASE — Splashy variant
-   ============================================================ */
-.phones-showcase {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;
-  margin: 2rem 0;
-}
-.phone-item {
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-}
-.phone-item img {
-  width: 160px; height: auto; border-radius: 28px;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: transform 0.3s;
-}
-.phone-item img:hover { transform: translateY(-6px); }
-.phone-lbl {
-  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--muted);
-}
-
-/* ============================================================
-   DECISION TRADEOFF
-   ============================================================ */
-.decision-compare {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-  background: var(--g-bg-strong); border-radius: 20px; padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-.decision-option {
-  padding: 1rem; border-radius: 12px;
-}
-.decision-option.kept { background: rgba(92,186,120,0.06); border: 1px solid rgba(92,186,120,0.15); }
-.decision-option.dropped { background: rgba(200,60,60,0.04); border: 1px solid rgba(200,60,60,0.1); }
-.decision-label {
-  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
-}
-.kept .decision-label { color: #2a7a42; }
-.dropped .decision-label { color: #a33; }
-
-/* ============================================================
-   DECISIONS GRID
-   ============================================================ */
-.decision-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.decision-card { padding: 1.6rem; }
-.decision-icon { font-size: 1.4rem; margin-bottom: 0.9rem; display: block; }
-.decision-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
-.decision-body { font-size: 0.84rem; line-height: 1.65; color: var(--muted); font-weight: 300; margin-bottom: 0.75rem; }
-.decision-why {
-  font-size: 0.73rem; color: var(--ocean-primary); font-style: italic;
-  border-top: 1px solid rgba(22,142,158,0.12); padding-top: 0.6rem;
-}
-
-/* ============================================================
-   ITERATIONS
-   ============================================================ */
-.iterations { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-.iteration { border-radius: 18px; padding: 1.5rem; }
-.iteration--problem {
-  background: rgba(220,60,60,0.05); border: 1px solid rgba(220,60,60,0.15);
-  border-left: 3px solid rgba(220,60,60,0.5);
-}
-.iteration--solution {
-  background: rgba(80,180,100,0.05); border: 1px solid rgba(80,180,100,0.15);
-  border-left: 3px solid rgba(80,180,100,0.5);
-}
-.iteration-tag { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.6rem; display: block; }
-.iteration--problem .iteration-tag { color: rgba(200,50,50,0.8); }
-.iteration--solution .iteration-tag { color: rgba(50,160,80,0.85); }
-.iteration-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
-.iteration-body { font-size: 0.85rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
-
-/* ============================================================
-   CONSTRAINTS
-   ============================================================ */
-.constraints { padding: 1.5rem 1.8rem; margin-top: 1rem; }
-.constraints-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ocean-primary); margin-bottom: 0.9rem; }
-.constraints ul { list-style: none; }
-.constraints li {
-  font-size: 0.87rem; color: rgba(0,0,0,0.55); line-height: 1.65; font-weight: 300;
-  padding: 0.3rem 0; display: flex; gap: 0.6rem; align-items: flex-start;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-}
-.constraints li:last-child { border-bottom: none; }
-.constraints li::before { content: '→'; color: var(--ocean-primary); font-weight: 700; flex-shrink: 0; }
-
-/* ============================================================
-   OUTCOMES
-   ============================================================ */
-.outcomes { display: flex; flex-direction: column; gap: 0.6rem; }
-.outcome {
-  display: flex; align-items: flex-start; gap: 1.2rem;
-  padding: 1.3rem 1.5rem;
-  border-left: 3px solid var(--ocean-primary);
-  border-radius: 0 16px 16px 0;
-  background: var(--g-bg); backdrop-filter: var(--g-blur);
-  border: 1px solid var(--g-border); border-left: 3px solid var(--ocean-primary);
-  box-shadow: var(--g-shadow);
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-.outcome:hover { transform: translateX(4px); box-shadow: var(--g-shadow-lift); }
-.outcome-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
-.outcome-t { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem; }
-.outcome-b { font-size: 0.85rem; line-height: 1.65; color: var(--muted); font-weight: 300; }
-
-/* ============================================================
-   FULL-BLEED BLOCKQUOTE
-   ============================================================ */
-.cs-blockquote-peak {
-  margin: 0 -3rem;
-  padding: 4rem 3rem;
-  position: relative;
-  background: rgba(22,142,158,0.04);
-  border-top: 1px solid rgba(22,142,158,0.1);
-  border-bottom: 1px solid rgba(22,142,158,0.1);
-  text-align: left;
-}
-.cs-blockquote-peak-inner { max-width: 1100px; margin: 0 auto; }
-.cs-blockquote-peak blockquote {
-  font-family: var(--serif); font-style: italic; font-weight: 700;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  line-height: 1.35; color: var(--dark);
-  border: none; background: none; padding: 0; border-radius: 0;
-  margin: 0;
-}
-.cs-blockquote-peak blockquote em { color: var(--ocean-primary); }
-.cs-blockquote-peak .attr {
-  font-size: 0.75rem; color: var(--muted); margin-top: 1.2rem;
-  letter-spacing: 0.06em; font-weight: 300;
-}
-
-/* ============================================================
-   PROOF QUOTE
-   ============================================================ */
-.proof-quote {
-  background: rgba(92,186,120,0.06); border: 1px solid rgba(92,186,120,0.2);
-  border-radius: 20px; padding: 1.8rem 2rem; margin: 2rem 0;
-}
-.proof-quote p { font-size: 1rem; line-height: 1.6; color: var(--dark); font-style: italic; }
-.proof-quote .attribution { font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; font-style: normal; }
-.proof-quote .attribution::before { content: '— '; }
-
-/* ============================================================
-   TWO COL
-   ============================================================ */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 5rem; align-items: start; margin-top: 1rem; }
-.body-text p { font-size: 0.97rem; line-height: 1.85; color: rgba(0,0,0,0.58); font-weight: 300; margin-bottom: 1rem; }
-.body-text p strong { font-weight: 700; color: var(--dark); }
-.body-text p:last-child { margin-bottom: 0; }
-
-/* ============================================================
-   INSIGHTS
-   ============================================================ */
-.insights { display: flex; flex-direction: column; gap: 1rem; }
-.insight {
-  background: var(--g-bg-muted); backdrop-filter: blur(8px);
-  border: 1px solid var(--g-border-sub); border-radius: 16px;
-  padding: 1.2rem;
-}
-.insight-q {
-  font-family: var(--serif); font-style: italic; font-weight: 600;
-  font-size: 0.95rem; color: var(--dark); margin-bottom: 0.5rem;
-}
-.insight-a {
-  font-size: 0.8rem; line-height: 1.6; color: var(--muted);
-}
-
-/* ============================================================
-   END + FOOTER
-   ============================================================ */
-.cs-end {
-  max-width: 1100px; margin: 0 auto; padding: 4rem 3rem;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 1.5rem;
-}
-.end-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
-.end-link { font-family: var(--serif); font-size: 2rem; text-decoration: none; color: var(--dark); display: block; transition: color 0.2s; }
-.end-link:hover { color: var(--ocean-primary); }
-.end-cta { background: var(--dark); color: white; padding: 0.7rem 1.5rem; border-radius: 40px; text-decoration: none; font-size: 0.8rem; font-weight: 600; transition: background 0.2s, transform 0.2s; }
-.end-cta:hover { background: var(--ocean-primary); transform: translateY(-2px); }
-footer { background: transparent; border-top: 1px solid rgba(0,0,0,0.06); padding: 1.5rem 3rem; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; }
-footer span, footer a { font-size: 0.72rem; color: rgba(0,0,0,0.3); text-decoration: none; transition: color 0.2s; }
-footer a:hover { color: var(--ocean-primary); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 900px) {
-  .top-summary { grid-template-columns: 1fr; gap: 0; }
-  .persona-grid { grid-template-columns: 1fr; }
-  .decision-grid { grid-template-columns: 1fr 1fr; }
-  .two-col { grid-template-columns: 1fr; gap: 2rem; }
-  .ocean-system-grid { grid-template-columns: 1fr; }
-  .ba-grid, .img-grid-2, .img-grid-3, .sketch-grid { grid-template-columns: 1fr; }
-  .iterations { grid-template-columns: 1fr; }
-  .decision-compare { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-  .cs-section { padding: 3.5rem 1.5rem; }
-  .editorial-peak, .ocean-section-wrap, .cs-blockquote-peak { margin: 0 -1.5rem; padding: 3rem 1.5rem; }
-  .decision-grid { grid-template-columns: 1fr; }
-  .problem-grid { grid-template-columns: 1fr; }
-  .cs-end { padding: 2.5rem 1.5rem; flex-direction: column; align-items: flex-start; }
-  footer { padding: 1.5rem; flex-direction: column; gap: 0.4rem; }
-  .fd-inner { grid-template-columns: 1fr; min-width: unset; }
-  .fd-arrow { display: none; }
-}
-</style>
+    @media (max-width: 640px) {
+      .ocean-section-wrap { margin: 0 -1.5rem; padding: 3rem 1.5rem; }
+      .ocean-system-grid { grid-template-columns: 1fr; }
+      .decision-compare { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -618,11 +158,14 @@ footer a:hover { color: var(--ocean-primary); }
     <li><a href="index.html#experience">Experience</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-drawer" id="mobileDrawer">
-  <a href="index.html#about">About</a><a href="index.html#work">Work</a>
-  <a href="index.html#experience">Experience</a><a href="index.html#contact">Contact</a>
+  <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+  <a href="index.html#about">About</a>
+  <a href="index.html#work">Work</a>
+  <a href="index.html#experience">Experience</a>
+  <a href="index.html#contact">Contact</a>
 </div>
 
 <!-- HERO -->
@@ -646,21 +189,12 @@ footer a:hover { color: var(--ocean-primary); }
   </div>
 </div>
 
-<!-- TOP SUMMARY STRIP -->
-<div style="padding: 0 3rem; max-width: 1100px; margin: 0 auto;">
+<!-- TOP SUMMARY -->
+<div style="padding:0 3rem;max-width:1100px;margin:0 auto;">
   <div class="top-summary">
-    <div class="ts-cell">
-      <p class="ts-label">Problem</p>
-      <p class="ts-text">Kids want to help but lack immediate feedback. <strong>Invisible consequences don't stick.</strong> Existing tools talk at children, not with them.</p>
-    </div>
-    <div class="ts-cell">
-      <p class="ts-label">Solution</p>
-      <p class="ts-text">Gamified quest system. <strong>Personal ocean that transforms.</strong> Creature collection mechanic. 3-tap action→reward loop.</p>
-    </div>
-    <div class="ts-cell">
-      <p class="ts-label">Impact</p>
-      <p class="ts-text">Task completion <strong>under 10 sec.</strong> Zero instruction needed. <strong>"What's the next creature?"</strong> — unprompted motivation.</p>
-    </div>
+    <div class="ts-cell"><p class="ts-label">Problem</p><p class="ts-text">Kids want to help but lack immediate feedback. <strong>Invisible consequences don't stick.</strong> Existing tools talk at children, not with them.</p></div>
+    <div class="ts-cell"><p class="ts-label">Solution</p><p class="ts-text">Gamified quest system. <strong>Personal ocean that transforms.</strong> Creature collection mechanic. 3-tap action→reward loop.</p></div>
+    <div class="ts-cell"><p class="ts-label">Impact</p><p class="ts-text">Task completion <strong>under 10 sec.</strong> Zero instruction needed. <strong>"What's the next creature?"</strong> — unprompted motivation.</p></div>
   </div>
 </div>
 
@@ -678,8 +212,8 @@ footer a:hover { color: var(--ocean-primary); }
       </div>
       <div>
         <div class="stat-row">
-          <div class="stat-pill"><span class="stat-pill-val" data-target="6">6</span><span class="stat-pill-label">Children interviewed</span></div>
-          <div class="stat-pill"><span class="stat-pill-val" data-target="3">3</span><span class="stat-pill-label">Rounds of testing</span></div>
+          <div class="stat-pill"><span class="stat-pill-val">6</span><span class="stat-pill-label">Children interviewed</span></div>
+          <div class="stat-pill"><span class="stat-pill-val">3</span><span class="stat-pill-label">Rounds of testing</span></div>
           <div class="stat-pill"><span class="stat-pill-val">3 taps</span><span class="stat-pill-label">Action→reward constraint</span></div>
           <div class="stat-pill"><span class="stat-pill-val">1 sem</span><span class="stat-pill-label">Timeline</span></div>
         </div>
@@ -708,7 +242,7 @@ footer a:hover { color: var(--ocean-primary); }
     <div class="problem-grid">
       <div class="gc prob"><div class="prob-n">01</div><p class="prob-t">Abstract impact</p><p class="prob-b">Most children struggled to connect daily actions to outcomes. Invisible consequences didn't stick.</p></div>
       <div class="gc prob"><div class="prob-n">02</div><p class="prob-t">No ownership</p><p class="prob-b">Tools talked at children. Without personal stake, engagement faded quickly.</p></div>
-      <div class="gc prob"><div class="prob-n">03</div><p class="prob-t">Rewards too late</p><p class="prob-b">Long-term rewards failed. Children needed immediate, visible feedback.</p></div>
+      <div class="gc prob"><div class="prob-n">03</div><p class="prob-t">Rewards too late</p><p class="prob-b">Long-term rewards failed. Children needed immediate, visible feedback to stay engaged.</p></div>
       <div class="gc prob"><div class="prob-n">04</div><p class="prob-t">No real-world link</p><p class="prob-b">Screen-only apps missed the point. Behaviour change happens offline.</p></div>
     </div>
   </div>
@@ -750,32 +284,30 @@ footer a:hover { color: var(--ocean-primary); }
         <div class="fd-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M0 8h20M16 2l6 6-6 6" stroke="#0e0d0b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="fd-node"><div class="fd-box pivot">Log progress</div><div class="fd-label">1 tap</div></div>
         <div class="fd-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M0 8h20M16 2l6 6-6 6" stroke="#0e0d0b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="fd-node"><div class="fd-box end">Earn creature</div><div class="fd-label">Reward</div></div>
-        <div class="fd-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M0 8h20M16 2l6 6-6 6" stroke="#0e0d0b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="fd-node"><div class="fd-box end">Ocean updates</div><div class="fd-label">Visual feedback</div></div>
+        <div class="fd-node"><div class="fd-box end">Ocean updates</div><div class="fd-label">Visual reward</div></div>
       </div>
       <p class="fd-note">Designed for minimal friction between real-world action and visible reward. Three taps or fewer.</p>
     </div>
   </div>
 </section>
 
-<!-- 05 CONCEPT DEVELOPMENT — updated with consistent image panels -->
+<!-- 05 CONCEPT DEVELOPMENT — sketch class properly applied -->
 <section class="cs-section" id="s5">
   <div class="inner">
     <span class="sec-num">05</span>
     <span class="section-label">Concept Development</span>
     <h2 class="section-heading">From sketch to final mark.</h2>
-    <div class="sketch-grid">
-      <div class="img-panel sketch-panel">
-        <img src="splashywireframe1.jpg" alt="Initial concept sketches">
+    <div class="img-grid-3">
+      <div class="img-panel">
+        <img class="img-sketch" src="splashywireframe1.jpg" alt="Initial concept sketches — early explorations of the Splashy identity" onerror="this.outerHTML='<div class=\'img-stub\' style=\'aspect-ratio:4/3\'>Stage 01 — Initial explorations</div>'">
         <p class="img-caption">Stage 01 · Initial explorations</p>
       </div>
-      <div class="img-panel sketch-panel">
-        <img src="splashywireframe2.jpg" alt="Refined sketch directions">
+      <div class="img-panel">
+        <img class="img-sketch" src="splashywireframe2.jpg" alt="Refined sketch directions — narrowing down the visual language" onerror="this.outerHTML='<div class=\'img-stub\' style=\'aspect-ratio:4/3\'>Stage 02 — Refined directions</div>'">
         <p class="img-caption">Stage 02 · Refined directions</p>
       </div>
-      <div class="img-panel sketch-panel">
-        <img src="splashywireframe3.jpg" alt="Logo drafts">
+      <div class="img-panel">
+        <img class="img-sketch" src="splashywireframe3.jpg" alt="Illustrator drafts — moving from sketch to final mark" onerror="this.outerHTML='<div class=\'img-stub\' style=\'aspect-ratio:4/3\'>Stage 03 — Illustrator drafts</div>'">
         <p class="img-caption">Stage 03 · Illustrator drafts</p>
       </div>
     </div>
@@ -788,14 +320,14 @@ footer a:hover { color: var(--ocean-primary); }
     <span class="sec-num">06</span>
     <span class="section-label">Illustration</span>
     <h2 class="section-heading">Building the world.</h2>
-    <div class="img-panel" style="margin-top:1.5rem;">
-      <img src="intialassets.jpg" alt="Initial creature asset set">
-      <p class="img-caption">Initial creature set — each tied to a specific eco-action category</p>
+    <div class="img-panel" style="margin-top:1.5rem">
+      <img class="img-desktop" src="intialassets.jpg" alt="Initial creature asset set — each tied to a specific eco-action category" onerror="this.outerHTML='<div class=\'img-stub\' style=\'aspect-ratio:16/10\'>Initial creature asset set</div>'">
+      <p class="img-caption">Initial creature set — each tied to a specific eco-action category. All hand-drawn in Adobe Illustrator.</p>
     </div>
   </div>
 </section>
 
-<!-- 07 OCEAN SYSTEM — dark glass section -->
+<!-- 07 OCEAN SYSTEM — dark section -->
 <div class="ocean-section-wrap">
   <div class="ocean-inner">
     <span class="ocean-section-label">07 · System Design</span>
@@ -805,7 +337,7 @@ footer a:hover { color: var(--ocean-primary); }
         <div class="ocean-stage-icon">🌫️</div>
         <div class="ocean-stage-name">Polluted</div>
         <div class="ocean-stage-trigger">0–5 quests</div>
-        <div class="ocean-stage-principle">Immediate visibility of problem</div>
+        <div class="ocean-stage-principle">Immediate visibility of the problem</div>
       </div>
       <div class="ocean-stage-card">
         <div class="ocean-stage-icon">🌿</div>
@@ -820,18 +352,17 @@ footer a:hover { color: var(--ocean-primary); }
         <div class="ocean-stage-principle">Aspirational, earned identity</div>
       </div>
     </div>
-    <!-- Tradeoff inside dark section -->
-    <div class="decision-compare" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);">
+    <div class="decision-compare">
       <div class="decision-option dropped">
-        <div class="decision-label">Option A (dropped)</div>
-        <p style="font-size:0.9rem; color:rgba(240,245,244,0.7);">Continuous gradient — ocean gradually changes with each quest. Tested but children didn't notice incremental shifts.</p>
+        <span class="decision-label">Option A — dropped</span>
+        <p>Continuous gradient — ocean gradually changes with each quest. Tested but children didn't notice incremental shifts.</p>
       </div>
       <div class="decision-option kept">
-        <div class="decision-label">Option B (kept)</div>
-        <p style="font-size:0.9rem; color:rgba(240,245,244,0.7);">Three distinct milestone states with creature unlock animations. Creates deliberate, noticeable reward moments.</p>
+        <span class="decision-label">Option B — kept</span>
+        <p>Three distinct milestone states with creature unlock animations. Creates deliberate, noticeable reward moments.</p>
       </div>
     </div>
-    <p style="font-size:0.9rem; color:rgba(240,245,244,0.5); margin-top:1.5rem;">Thresholds based on observed engagement during prototype testing. 0–5 quests established baseline; 6–15 felt like progress; 16+ required sustained effort — mapping to variable rewards with escalating value.</p>
+    <p style="font-size:0.9rem;color:rgba(240,245,244,0.5);margin-top:1.5rem;line-height:1.75">Thresholds based on observed engagement during prototype testing. 0–5 quests established baseline; 6–15 felt like progress; 16+ required sustained effort — mapping to variable rewards with escalating value.</p>
   </div>
 </div>
 
@@ -842,16 +373,31 @@ footer a:hover { color: var(--ocean-primary); }
     <span class="section-label">Final Design</span>
     <h2 class="section-heading">The interface.</h2>
     <div class="phones-showcase">
-      <div class="phone-item"><img src="splash screen.png" alt="Splash screen"><span class="phone-lbl">Splash</span></div>
-      <div class="phone-item"><img src="fish - medium.png" alt="Ocean building"><span class="phone-lbl">Building</span></div>
-      <div class="phone-item"><img src="fish.png" alt="Ocean thriving"><span class="phone-lbl">Thriving</span></div>
-      <div class="phone-item"><img src="quests active good.png" alt="Active quests"><span class="phone-lbl">Quests</span></div>
-      <div class="phone-item"><img src="log drag.png" alt="Waste log"><span class="phone-lbl">Log</span></div>
+      <div class="phone-item">
+        <img class="img-phone" src="splash screen.png" alt="Splashy splash screen">
+        <span class="phone-lbl">Splash</span>
+      </div>
+      <div class="phone-item">
+        <img class="img-phone" src="fish - medium.png" alt="Splashy ocean — building state">
+        <span class="phone-lbl">Building</span>
+      </div>
+      <div class="phone-item">
+        <img class="img-phone" src="fish.png" alt="Splashy ocean — thriving state">
+        <span class="phone-lbl">Thriving</span>
+      </div>
+      <div class="phone-item">
+        <img class="img-phone" src="quests active good.png" alt="Splashy active quests screen">
+        <span class="phone-lbl">Quests</span>
+      </div>
+      <div class="phone-item">
+        <img class="img-phone" src="log drag.png" alt="Splashy waste log screen">
+        <span class="phone-lbl">Log</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FULL-BLEED BLOCKQUOTE -->
+<!-- BLOCKQUOTE PEAK -->
 <div class="cs-blockquote-peak">
   <div class="cs-blockquote-peak-inner">
     <blockquote>After the quest screen redesign, one child completed five tasks without a single question. <em>Before, they'd stop and ask what to do after every tap.</em></blockquote>
@@ -891,8 +437,8 @@ footer a:hover { color: var(--ocean-primary); }
     <h2 class="section-heading">What testing showed.</h2>
     <div class="outcomes">
       <div class="outcome"><span class="outcome-icon">✓</span><div><p class="outcome-t">No instruction needed</p><p class="outcome-b">All three participants grasped the quest-to-ocean connection without explanation.</p></div></div>
-      <div class="outcome"><span class="outcome-icon">✓</span><div><p class="outcome-t">Unprompted motivation</p><p class="outcome-b">Two of three asked "what's the next creature?" without prompting.</p></div></div>
-      <div class="outcome"><span class="outcome-icon">✓</span><div><p class="outcome-t">Task time reduced</p><p class="outcome-b">Log progress action completed in under 10 seconds consistently after redesign.</p></div></div>
+      <div class="outcome"><span class="outcome-icon">✓</span><div><p class="outcome-b outcome-t">Unprompted motivation</p><p class="outcome-b">Two of three asked "what's the next creature?" without prompting.</p></div></div>
+      <div class="outcome"><span class="outcome-icon">✓</span><div><p class="outcome-t">Task time under 10 seconds</p><p class="outcome-b">Log progress action completed consistently under 10 seconds after the quest screen redesign.</p></div></div>
     </div>
   </div>
 </section>
@@ -905,7 +451,7 @@ footer a:hover { color: var(--ocean-primary); }
     <h2 class="section-heading">What I got wrong at first.</h2>
     <div class="two-col">
       <div class="body-text">
-        <p><strong>I initially designed for the child I imagined, not the one I met.</strong> The first quest screen assumed a reading level and attention span that didn't exist. Watching a child skip every word and tap randomly was humbling. That failure forced the icon-led redesign.</p>
+        <p><strong>I initially designed for the child I imagined, not the one I met.</strong> The first quest screen assumed a reading level and attention span that didn't exist. Watching a child skip every word and tap randomly was humbling — and forced the icon-led redesign.</p>
       </div>
       <div class="body-text">
         <p><strong>Research is structural, not preliminary.</strong> The creature collection mechanic came from a child mentioning Pokemon. The named ocean came from a child wanting to show friends. I didn't invent those features — I heard them and built accordingly.</p>
