@@ -120,6 +120,70 @@
     .end-link:hover { color: var(--accent); }
     .end-cta:hover  { background: var(--accent); }
 
+    /* ── Section 05: homepage B/A layout ─────────────────────────────────── */
+    /* Left col = two stacked before panels; right col = one tall after panel */
+    .ba-grid-homepage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: stretch;   /* both columns stretch to the same height */
+    }
+
+    /* The stacking wrapper fills its grid cell completely */
+    .ba-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      height: 100%;
+    }
+
+    /* Each before panel shares the available height equally */
+    .ba-stack .ba-panel {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Images in the stacked before panels: fill whatever height is left after
+       the header and caption, so both panels stretch to an equal size */
+    .ba-stack .ba-panel .img-before-after,
+    .ba-stack .ba-panel .img-stub {
+      flex: 1 1 0;
+      width: 100%;
+      object-fit: cover;
+      min-height: 0;          /* allows flex shrink below intrinsic size */
+    }
+
+    /* The after panel (right col) must also stretch to fill the full row height */
+    .ba-grid-homepage > .ba-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* The after image fills whatever height remains after header + caption */
+    .ba-grid-homepage > .ba-panel .img-before-after,
+    .ba-grid-homepage > .ba-panel .img-stub {
+      flex: 1 1 0;
+      width: 100%;
+      object-fit: cover;
+      min-height: 0;
+    }
+
+    /* Responsive: collapse to single column on narrow screens */
+    @media (max-width: 700px) {
+      .ba-grid-homepage { grid-template-columns: 1fr; }
+      .ba-stack .ba-panel .img-before-after,
+      .ba-stack .ba-panel .img-stub,
+      .ba-grid-homepage > .ba-panel .img-before-after,
+      .ba-grid-homepage > .ba-panel .img-stub {
+        flex: none;
+        height: auto;
+        min-height: 180px;
+      }
+    }
+    /* ──────────────────────────────────────────────────────────────────────── */
+
     @media (max-width: 640px) {
       .sql-section-wrap { margin: 0 -1.5rem; padding: 3rem 1.5rem; }
       .sql-layout { grid-template-columns: 1fr; gap: 2rem; }
@@ -311,7 +375,14 @@
     <span class="sec-num">05</span>
     <span class="section-label">Before + After</span>
     <h2 class="section-heading">Two brands into one unified platform.</h2>
+
+    <!--
+      Layout: left col = two stacked "before" panels (Hunza + LuxR)
+               right col = one tall "after" panel that matches the combined height
+    -->
     <div class="ba-grid-homepage">
+
+      <!-- LEFT: two stacked before panels -->
       <div class="ba-stack">
         <div class="ba-panel">
           <div class="ba-header"><span>Original Hunza</span><span class="ba-tag before">Before</span></div>
@@ -324,11 +395,14 @@
           <p class="ba-caption">LuxR as a minimal standalone site with no brand identity of its own. Disconnected from Hunza. No shared navigation, no cross-brand awareness.</p>
         </div>
       </div>
+
+      <!-- RIGHT: single tall after panel -->
       <div class="ba-panel">
         <div class="ba-header"><span>Redesigned unified platform</span><span class="ba-tag after">After</span></div>
-        <img class="img-before-after" src="hunza-after.png" alt="Redesigned Hunza and LuxR unified platform" onerror="this.outerHTML='<div class=\'img-stub\' style=\'aspect-ratio:4/3\'>Redesigned unified platform</div>'">
+        <img class="img-before-after" src="hunza-after.png" alt="Redesigned Hunza and LuxR unified platform" onerror="this.outerHTML='<div class=\'img-stub\'>Redesigned unified platform</div>'">
         <p class="ba-caption">Purpose-built for a distributor-only premium brand. Dual-brand hero introduces both Hunza and LuxR with individual taglines and CTAs. Taglines lead with "Auckland, New Zealand" and "hand assembled" above the fold. Five separate CTA touchpoints: sticky bar, hero, early consultation strip, custom solutions, and footer. Consistent design system with one typeface, one accent colour, and a fixed spacing scale throughout.</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -385,10 +459,7 @@
     <div class="ba-grid">
       <div class="ba-panel">
         <div class="ba-header"><span>Original distributor page</span><span class="ba-tag before">Before</span></div>
-        <div class="img-stub" style="display:flex;flex-direction:column;gap:0.8rem">
-          <span style="font-size:1.4rem">📄</span>
-          <span style="font-size:0.78rem;text-transform:none;letter-spacing:0;font-weight:400;color:rgba(0,0,0,0.4);max-width:22ch;line-height:1.6">One paragraph of text and a generic contact form. No pricing. No files. No portal. The "Find a Distributor/Agent" link was small text in the top nav with no explanation of why it mattered.</span>
-        </div>
+        <img class="img-before-after" src="distributorbefore.png" alt="Original LuxR distributor page" onerror="this.outerHTML='<div class=\'img-stub\' style=\'display:flex;flex-direction:column;gap:0.8rem\'><span style=\'font-size:1.4rem\'>📄</span><span style=\'font-size:0.78rem;text-transform:none;letter-spacing:0;font-weight:400;color:rgba(0,0,0,0.4);max-width:22ch;line-height:1.6\'>One paragraph of text and a generic contact form. No pricing. No files. No portal.</span></div>'">
         <p class="ba-caption">Portal usage had stopped entirely. Distributors were managing everything via email. The exclusive distribution model was never explained visitors had no context for why finding a distributor mattered.</p>
       </div>
       <div class="ba-panel">
@@ -415,14 +486,14 @@
     <h2 class="sql-heading">The database problem no one else could solve.</h2>
     <div class="sql-layout">
       <div class="sql-text">
-        <p><strong>Every powdercoat aluminium product had incorrect SKUs.</strong> Powdercoat is the most popular finish in the range this meant a huge proportion of products were showing wrong prices on a site where individual fixtures cost thousands of dollars.</p>
-        <p>Their external IT contractor had attempted to fix this and failed. I found it independently during a routine product audit, diagnosed the root cause through phpMyAdmin, and wrote a targeted SQL query to identify and correct all affected entries.</p>
-        <p>I then added SKU uniqueness validation to prevent the conflict recurring so the fix wasn't a patch, it was a structural safeguard.</p>
+        <p><strong>Every powdercoat aluminium product had incorrect SKUs.</strong> WooCommerce was storing each powdercoat colour as a separate SKU (e.g. S/U12/S EBK, S/U12/S EBZ) while Accredo — the ERP — only tracks by base material (S/U12/S ALI). This meant SKU-based price imports always failed, and the external IT contractor couldn't find the root cause.</p>
+        <p>I identified the mismatch independently during a product audit, diagnosed it through phpMyAdmin, and wrote a targeted SQL query to surface all duplicate and conflicting SKUs across the full powdercoat range — 5,000+ affected variations.</p>
+        <p>The fix: rename all powdercoat variation SKUs to their ALI equivalent so they match Accredo exactly, while keeping the colour attribute on each variation so customers can still select their finish on the front end and it appears correctly on the order. I then built a Python sync script so future Accredo price exports map automatically — no manual work, no recurrence.</p>
         <div class="sql-impact">
-          <div class="impact-badge">All powdercoat SKUs corrected</div>
+          <div class="impact-badge">5,000+ SKUs corrected</div>
           <div class="impact-badge">Pricing accuracy restored</div>
           <div class="impact-badge">Resolved where IT contractor could not</div>
-          <div class="impact-badge">Validation added zero recurrence</div>
+          <div class="impact-badge">Automated sync prevents recurrence</div>
         </div>
       </div>
       <div class="sql-block">
