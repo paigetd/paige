@@ -194,7 +194,7 @@ body::before {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 2.5rem 4rem;
+  padding: 9rem 2.5rem 4rem;   /* top padding clears nav + absolute elements */
   position: relative;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
@@ -808,7 +808,7 @@ footer a:hover { color: var(--accent2); }
   .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
 }
 @media (max-width: 768px) {
-  #hero { padding: 0 1.4rem 2.5rem; }
+  #hero { padding: 8rem 1.4rem 2.5rem; }  /* keeps top clearance on mobile */
   .hero-top { left: 1.4rem; right: 1.4rem; top: 4.5rem; }
   .hero-headshot-wrap { top: 4rem; right: 1.4rem; }
   .hero-headshot { width: 90px; height: 90px; }
@@ -820,7 +820,7 @@ footer a:hover { color: var(--accent2); }
 }
 @media (max-width: 480px) {
   .hero-headshot { width: 72px; height: 72px; border-width: 2px; }
-  .hero-name { font-size: clamp(3.8rem, 16vw, 5.5rem); }
+  .hero-name { font-size: clamp(3.2rem, 14vw, 5rem); }  /* smaller at very small screens */
   .hero-positioning { font-size: 0.97rem; }
   .card-content { padding: 1.2rem 1.3rem 1.4rem; }
 }
