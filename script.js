@@ -105,7 +105,6 @@
   const sections = document.querySelectorAll('.cs-section');
   const dotsWrap = document.getElementById('section-dots');
   if (dotsWrap && sections.length) {
-    // Create dots
     sections.forEach((sec, i) => {
       const dot = document.createElement('div');
       dot.className = 'sdot';
@@ -131,7 +130,6 @@
   function animateCounter(el) {
     const raw = el.dataset.target;
     if (!raw) return;
-    // Handle non-numeric values like "B2B", "SQL"
     if (!/^\d/.test(raw)) {
       el.textContent = raw;
       return;
@@ -180,19 +178,17 @@
     });
   });
 
-  // ---------- MAGNETIC CONTACT LINKS ----------
+  // ---------- SUBTLE CONTACT LINK NUDGE ----------
+  // Small lift on hover — no tracking, no magnetic pull, just a light touch.
   const contactLinks = document.querySelectorAll('.contact-link');
   contactLinks.forEach(link => {
-    link.addEventListener('mousemove', e => {
-      const rect = link.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
-      const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
-      link.style.transform = `translate(${x}px, ${y}px)`;
-      link.style.transition = 'transform 0.12s ease';
+    link.addEventListener('mouseenter', () => {
+      link.style.transform = 'translateY(-2px)';
+      link.style.transition = 'transform 0.2s ease';
     });
     link.addEventListener('mouseleave', () => {
-      link.style.transform = 'translate(0, 0)';
-      link.style.transition = 'transform 0.5s ease';
+      link.style.transform = 'translateY(0)';
+      link.style.transition = 'transform 0.3s ease';
     });
   });
 
